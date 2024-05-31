@@ -9,15 +9,15 @@ import Login from './pages/auth/Login';
 
 // componentes
 import Navbar from "./components/Navbar"
-import RoleTabs from './components/RoleTabs';
+import NavBarPrueba from './components/NavBarPrueba';
 
 
 function App() {
 
   return (
     <>
+    <NavBarPrueba />
       <Navbar />
-      <RoleTabs />
 
       <Routes>
         <Route path="/" element={ <Home /> } />

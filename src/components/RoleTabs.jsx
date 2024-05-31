@@ -8,11 +8,11 @@ import { AuthContext } from "../context/auth.context";
 function RoleTabs() {
  
   // 🌐 context
-  const { tabsValue } = useContext(AuthContext)
+  const { tabsValue, setTabsValue } = useContext(AuthContext)
 
   // 🕹️ funciones de control
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setTabsValue(newValue);
   };
   return (
     <Box sx={{ bgcolor: 'background.paper', display: "flex", justifyContent: "center" }}>

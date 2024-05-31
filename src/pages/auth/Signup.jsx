@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import service from "../../services/config.services";
+import RoleTabs from "../../components/RoleTabs";
+import Container from '@mui/material/Container';
 
 function Signup() {
   const navigate = useNavigate();
@@ -53,7 +55,12 @@ function Signup() {
   };
 
   return (
+    <Container maxWidth="sm">
+
     <Box display="flex" flexDirection="column" justifyContent="center">
+
+      <RoleTabs />
+
       <h1> Regístrate </h1>
 
       <form onSubmit={handleSignup}>
@@ -101,6 +108,7 @@ function Signup() {
         </Box>
       </form>
     </Box>
+    </Container>
   );
 }
 
