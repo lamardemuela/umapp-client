@@ -1,18 +1,23 @@
-import React from "react";
+//* ⤵️ IMPORTS
+import React, { useContext } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { AuthContext } from "../context/auth.context";
 
 function RoleTabs() {
-  const [value, setValue] = React.useState(0);
+ 
+  // 🌐 context
+  const { tabsValue } = useContext(AuthContext)
 
+  // 🕹️ funciones de control
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
     <Box sx={{ bgcolor: 'background.paper', display: "flex", justifyContent: "center" }}>
       <Tabs
-        value={value}
+        value={tabsValue}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons="auto"
@@ -25,4 +30,5 @@ function RoleTabs() {
   )
 }
 
+//* ⤴️ EXPORTS
 export default RoleTabs;
