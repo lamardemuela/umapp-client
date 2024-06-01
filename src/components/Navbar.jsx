@@ -1,5 +1,5 @@
 //* ⤵️ IMPORTS
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -17,6 +17,9 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import service from "../services/config.services";
+import AppBar from "@mui/material/AppBar";
+import Container from "@mui/material/Container";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Navbar(props) {
   // 🌐 context
@@ -29,6 +32,16 @@ function Navbar(props) {
   // 📦 estados
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [userName, setUserName] = useState(null)
+
+  // 🧱 useEffect => llamada al backend (componentDidMount)
+  useEffect(() => {
+    if(userInfo){
+      setUserName(userInfo.name)
+    }
+  }, [])
+
+  console.log(userName);
 
   // 🕹️ funciones de control
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -39,18 +52,19 @@ function Navbar(props) {
     localStorage.removeItem("authToken");
 
     // 2. actualizamos los estados
-    await authenticateUser()
-    
+    await authenticateUser();
 
     // 3. redireccionamos
     navigate("/login");
   };
 
-  
-  
+  if (userInfo === null || userName===null) {
+    return <CircularProgress />
+  }
 
   return (
-    <React.Fragment>
+    <AppBar position="static">
+      <Container maxWidth="xl"></Container>
       <Box
         sx={{
           display: "flex",
@@ -94,8 +108,9 @@ function Navbar(props) {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-
-              <Avatar sx={{ width: 32, height: 32 }} >{userInfo.name[0].toUpperCase()}</Avatar>
+              <Avatar sx={{ width: 32, height: 32 }}>
+                {userName[0].toUpperCase()}
+              </Avatar>
             </IconButton>
           </Tooltip>
         )}
@@ -146,7 +161,9 @@ function Navbar(props) {
             {/* if(isDogOwner === true && tabsValue === 0 ){
 
             } */}
-            {isDogOwner && tabsValue === 0 ? "Buscar Educadores caninos" : "Inicio"}
+            {isDogOwner && tabsValue === 0
+              ? "Buscar Educadores caninos"
+              : "Inicio"}
             {/* {isDogTrainer && "Inicio"} */}
           </Link>
         </MenuItem>
@@ -196,17 +213,29 @@ function Navbar(props) {
         )}
 
         {isLoggedIn === true && (
-          <MenuItem onClick={handleClose}>
-            <Link color="inherit" underline="none" onClick={handleLogOut}>
-              <ListItemIcon>
+          <Box>
+            <MenuItem onClick={handleClose}>
+              <Link
+                component={RouterLink}
+                to="/my-profile"
+                color="inherit"
+                underline="none"
+              >
+                <AccountCircleOutlinedIcon fontSize="small" />
+                Mi perfil
+              </Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link color="inherit" underline="none" onClick={handleLogOut}>
                 <LogoutOutlinedIcon fontSize="small" />
-              </ListItemIcon>
-              Cerrar sesión
-            </Link>
-          </MenuItem>
+                Cerrar sesión
+              </Link>
+            </MenuItem>
+          </Box>
         )}
       </Menu>
-    </React.Fragment>
+    </AppBar>
   );
 }
 

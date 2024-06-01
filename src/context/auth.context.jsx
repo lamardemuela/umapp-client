@@ -1,6 +1,7 @@
 //* ⤵️ IMPORTS
 import { createContext, useEffect, useState } from "react";
 import service from "../services/config.services";
+import CircularProgress from '@mui/material/CircularProgress';
 
 // componente que comparte el contexto
 const AuthContext = createContext();
@@ -69,11 +70,12 @@ function AuthWrapper(props) {
         const response = await service.get(`/user/owner`);
         console.log("mi usuario", response);
         setUserInfo(response.data)
-
     } catch (error) {
       console.log(error);
     }
   };
+
+
 
   const passedContext = {
     isLoggedIn,
@@ -93,7 +95,7 @@ function AuthWrapper(props) {
 
   // cláusula de guardia
   if (isAuthenticating === true) {
-    return <h3>... autenticando</h3>;
+    return <CircularProgress />
   }
 
   return (

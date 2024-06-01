@@ -9,18 +9,21 @@ import Login from './pages/auth/Login';
 
 // componentes
 import Navbar from "./components/Navbar"
-import NavBarPrueba from './components/NavBarPrueba';
+import MyProfile from './pages/MyProfile';
+import DogDetails from './pages/DogDetails';
+
 
 
 function App() {
 
   return (
     <>
-    <NavBarPrueba />
       <Navbar />
 
       <Routes>
         <Route path="/" element={ <Home /> } />
+        <Route path="/dog/:dogId" element={ <DogDetails /> } />
+        <Route path="/my-profile" element={ <MyProfile /> } />
         <Route path="/signup" element = { <Signup /> }  />
         <Route path="/login" element = { <Login /> }  />
       </Routes>
