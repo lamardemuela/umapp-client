@@ -16,6 +16,7 @@ function AuthWrapper(props) {
   const [isDogTrainer, setIsDogTrainer] = useState(false);
   const [tabsValue, setTabsValue] = useState(0);
   const [userInfo, setUserInfo] = useState(null)
+  const [loadingUserInfo, setLoadingUserInfo] = useState(true);
 
   // validación del token
   const authenticateUser = async () => {
@@ -64,18 +65,20 @@ function AuthWrapper(props) {
     }
   };
 
+  
   // información del usuario
   const getUserInfo = async () => {
     try {
         const response = await service.get(`/user/owner`);
         console.log("mi usuario", response);
         setUserInfo(response.data)
+        // setLoadingUserInfo(false); // Indicar que la carga ha finalizado
     } catch (error) {
       console.log(error);
+      // setLoadingUserInfo(false);
+      //setUserInfo(null)
     }
   };
-
-
 
   const passedContext = {
     isLoggedIn,

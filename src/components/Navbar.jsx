@@ -1,53 +1,54 @@
-//* ⤵️ IMPORTS
 import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import MenuItem from "@mui/material/MenuItem";
+import Drawer from "@mui/material/Drawer";
+import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Link from "@mui/material/Link";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
+import logo from "../assets/images/umapp-logo.png"
 import { AuthContext } from "../context/auth.context";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import service from "../services/config.services";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
-import CircularProgress from '@mui/material/CircularProgress';
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
-function Navbar(props) {
+const logoStyle = {
+  width: "140px",
+  height: "auto",
+  cursor: "pointer",
+};
+
+function AppAppBar() {
   // 🌐 context
-  const { authenticateUser, isLoggedIn, isDogOwner, tabsValue, userInfo } =
+  const { authenticateUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
+    console.log(isLoggedIn);
+  // 📦 estados
+  const [open, setOpen] = React.useState(false);
+  const [userName, setUserName] = useState(null);
 
   // ⛵️ navigate
   const navigate = useNavigate();
 
-  // 📦 estados
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const [userName, setUserName] = useState(null)
-
   // 🧱 useEffect => llamada al backend (componentDidMount)
   useEffect(() => {
-    if(userInfo){
+    if(userInfo !== null){
       setUserName(userInfo.name)
     }
-  }, [])
-
+  }, [userInfo])
   console.log(userName);
 
   // 🕹️ funciones de control
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
-  const handleLogOut = async () => {
+  const handleLogOut = async (e) => {
+    e.preventDefault()
     // 1. removemos el token del localStorage
     localStorage.removeItem("authToken");
 
@@ -58,186 +59,312 @@ function Navbar(props) {
     navigate("/login");
   };
 
-  if (userInfo === null || userName===null) {
-    return <CircularProgress />
-  }
+  // cláusula de guardia
+//   if (userInfo === null || userName === null) {
+//     return <h2>pruebas</h2>;
+//   }
+
+//   if (loadingUserInfo) {
+//     return <CircularProgress />;
+//   }
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl"></Container>
-      <Box
+    <div>
+      <AppBar
+        position="fixed"
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
+          boxShadow: 0,
+          bgcolor: "transparent",
+          backgroundImage: "none",
+          mt: 2,
         }}
       >
-        <Link
-          sx={{ minWidth: 100 }}
-          color="inherit"
-          underline="none"
-          component={RouterLink}
-          to="/"
-        >
-          {"umapp"}
-        </Link>
-
-        {/* CUANDO EL USUARIO NO ESTÁ LOGEADO */}
-        {isLoggedIn === false && (
-          <MenuOutlinedIcon
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClick}
+        <Container maxWidth="lg">
+          <Toolbar
+            variant="regular"
+            sx={(theme) => ({
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexShrink: 0,
+              borderRadius: "999px",
+              bgcolor:
+                theme.palette.mode === "light"
+                  ? "rgba(255, 255, 255, 0.4)"
+                  : "rgba(0, 0, 0, 0.4)",
+              backdropFilter: "blur(24px)",
+              maxHeight: 40,
+              border: "1px solid",
+              borderColor: "divider",
+              boxShadow:
+                "0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)",
+            })}
           >
-            <MoreVertIcon />
-          </MenuOutlinedIcon>
-        )}
-
-        {/* CUANDO EL USUARIO ESTÁ LOGEADO */}
-        {isLoggedIn === true && (
-          <Tooltip title="Mi perfil">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                alignItems: "center",
+                ml: "-18px",
+                px: 0,
+              }}
             >
-              <Avatar sx={{ width: 32, height: 32 }}>
-                {userName[0].toUpperCase()}
-              </Avatar>
-            </IconButton>
-          </Tooltip>
-        )}
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&::before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <MenuItem onClick={handleClose}>
-          <Link
-            sx={{ minWidth: 100 }}
-            component={RouterLink}
-            to="/"
-            color="inherit"
-            underline="none"
-          >
-            {/* if(isDogOwner === true && tabsValue === 0 ){
+              <img
+                src={logo}
+                style={logoStyle}
+                alt="logo of sitemark"
+              />
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <MenuItem sx={{ py: "6px", px: "12px" }}>
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    component={RouterLink}
+                    to="/"
+                  >
+                    Inicio
+                  </Typography>
+                </MenuItem>
+                <MenuItem sx={{ py: "6px", px: "12px" }}>
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    component={RouterLink}
+                    to="/session"
+                  >
+                    Sesiones
+                  </Typography>
+                </MenuItem>
+                <MenuItem sx={{ py: "6px", px: "12px" }}>
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    component={RouterLink}
+                    to="/session"
+                  >
+                    Sobre nosotros
+                  </Typography>
+                </MenuItem>
+              </Box>
+            </Box>
 
-            } */}
-            {isDogOwner && tabsValue === 0
-              ? "Buscar Educadores caninos"
-              : "Inicio"}
-            {/* {isDogTrainer && "Inicio"} */}
-          </Link>
-        </MenuItem>
-
-        <MenuItem onClick={handleClose}>
-          <Link
-            sx={{ minWidth: 100 }}
-            href="#"
-            color="inherit"
-            underline="none"
-          >
-            {"Sobre umapp"}
-          </Link>
-        </MenuItem>
-
-        <Divider />
-        {isLoggedIn === false && (
-          <Box>
-            <MenuItem onClick={handleClose}>
-              <Link
-                component={RouterLink}
-                to="/login"
-                color="inherit"
-                underline="none"
+            {/* CUANDO EL USUARIO NO ESTÁ LOGEADO */}
+            {isLoggedIn === false && (
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  gap: 0.5,
+                  alignItems: "center",
+                }}
               >
-                <ListItemIcon>
-                  <LoginOutlinedIcon fontSize="small" />
-                </ListItemIcon>
-                Iniciar sesión
-              </Link>
-            </MenuItem>
-
-            <MenuItem onClick={handleClose}>
-              <Link
-                component={RouterLink}
-                to="/signup"
-                color="inherit"
-                underline="none"
+                <Button
+                  color="primary"
+                  variant="text"
+                  size="small"
+                  component={RouterLink}
+                  to="/login"
+                >
+                  Iniciar sesión
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  size="small"
+                  component={RouterLink}
+                  to="/signup"
+                >
+                  Regístrate
+                </Button>
+              </Box>
+            )}
+            {/* CUANDO EL USUARIO ESTÁ LOGEADO */}
+            {isLoggedIn === true && (
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  gap: 0.5,
+                  alignItems: "center",
+                }}
               >
-                <ListItemIcon>
-                  <AccountCircleOutlinedIcon fontSize="small" />
-                </ListItemIcon>
-                Regístrate
-              </Link>
-            </MenuItem>
-          </Box>
-        )}
+                <Tooltip title="Mi perfil">
+                  <IconButton
+                    size="small"
+                    sx={{ ml: 2 }}
+                    aria-controls={open ? "account-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                  >
+                    {userInfo && userInfo.name && (
+                      <Avatar
+                      component={RouterLink}
+                      to="/my-profile"
+                      sx={{ width: 32, height: 32 }}>
+                        {userInfo.name[0].toUpperCase()}
+                      </Avatar>
+                    )}
+                  </IconButton>
+                </Tooltip>
+                <Button
+                  color="primary"
+                  variant="text"
+                  size="small"
+                  component={RouterLink}
+                  to="/login"
+                  onClick={handleLogOut}
+                >
+                  Cerrar sesión
+                </Button>
+              </Box>
+            )}
 
-        {isLoggedIn === true && (
-          <Box>
-            <MenuItem onClick={handleClose}>
-              <Link
-                component={RouterLink}
-                to="/my-profile"
-                color="inherit"
-                underline="none"
-              >
-                <AccountCircleOutlinedIcon fontSize="small" />
-                Mi perfil
-              </Link>
-            </MenuItem>
+            {/* DRAWER RESPONSIVE */}
+            {isLoggedIn === false && (
+              <Box sx={{ display: { sm: "", md: "none" } }}>
+                <Button
+                  variant="text"
+                  color="primary"
+                  aria-label="menu"
+                  onClick={toggleDrawer(true)}
+                  sx={{ minWidth: "30px", p: "4px" }}
+                >
+                  <MenuIcon />
+                </Button>
+                <Drawer
+                  anchor="right"
+                  open={open}
+                  onClose={toggleDrawer(false)}
+                >
+                  <Box
+                    sx={{
+                      minWidth: "60dvw",
+                      p: 2,
+                      backgroundColor: "background.paper",
+                      flexGrow: 1,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "end",
+                        flexGrow: 1,
+                      }}
+                    ></Box>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to="/"
+                      >
+                        Inicio
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to="/session"
+                      >
+                        Sesiones
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to="/session"
+                      >
+                        Sobre nosotros
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem>
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        component={RouterLink}
+                        to="/signup"
+                        sx={{ width: "100%" }}
+                      >
+                        Regístrate
+                      </Button>
+                    </MenuItem>
+                    <MenuItem>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        component={RouterLink}
+                        to="/login"
+                        sx={{ width: "100%" }}
+                      >
+                        Iniciar sesión
+                      </Button>
+                    </MenuItem>
+                  </Box>
+                </Drawer>
+              </Box>
+            )}
 
-            <MenuItem>
-              <Link color="inherit" underline="none" onClick={handleLogOut}>
-                <LogoutOutlinedIcon fontSize="small" />
-                Cerrar sesión
-              </Link>
-            </MenuItem>
-          </Box>
-        )}
-      </Menu>
-    </AppBar>
+            {isLoggedIn === true && (
+              <Box sx={{ display: { sm: "", md: "none" } }}>
+                <Button
+                  variant="text"
+                  color="primary"
+                  aria-label="menu"
+                  onClick={toggleDrawer(true)}
+                  sx={{ minWidth: "30px", p: "4px" }}
+                >
+                  <MenuIcon />
+                </Button>
+                <Drawer
+                  anchor="right"
+                  open={open}
+                  onClose={toggleDrawer(false)}
+                >
+                  <Box
+                    sx={{
+                      minWidth: "60dvw",
+                      p: 2,
+                      backgroundColor: "background.paper",
+                      flexGrow: 1,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "end",
+                        flexGrow: 1,
+                      }}
+                    ></Box>
+                    <MenuItem>Inicio</MenuItem>
+                    <MenuItem>Sesiones</MenuItem>
+                    <MenuItem>Mi perfil</MenuItem>
+                    <MenuItem>Sobre nosotros</MenuItem>
+                    <Divider />
+                    <MenuItem>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        component={RouterLink}
+                        to="/login"
+                        sx={{ width: "100%" }}
+                        onClick={handleLogOut}
+                      >
+                        Cerrar sesión
+                      </Button>
+                    </MenuItem>
+                  </Box>
+                </Drawer>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
   );
 }
 
-//* ⤴️ EXPORTS
-export default Navbar;
+export default AppAppBar;
