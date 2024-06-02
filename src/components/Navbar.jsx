@@ -20,6 +20,8 @@ const logoStyle = {
   width: "140px",
   height: "auto",
   cursor: "pointer",
+  marginLeft: "12px",
+  marginRight: "12px"
 };
 
 function AppAppBar() {
@@ -87,7 +89,7 @@ function AppAppBar() {
               alignItems: "center",
               justifyContent: "space-between",
               flexShrink: 0,
-              borderRadius: "999px",
+              borderRadius: "12px",
               bgcolor:
                 theme.palette.mode === "light"
                   ? "rgba(255, 255, 255, 0.4)"

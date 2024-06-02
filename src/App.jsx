@@ -1,6 +1,9 @@
+//* ⤵️ IMPORTS
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Routes, Route } from "react-router";
+
 // estilos
 import './App.css'
-import { Routes, Route } from "react-router";
 
 // pages
 import Home from './pages/Home';
@@ -13,13 +16,30 @@ import About from './pages/About'
 import MyProfile from './pages/MyProfile';
 import DogDetails from './pages/DogDetails';
 import Navbar from "./components/Navbar"
+import { Container } from '@mui/material';
 
 
 
 function App() {
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#577B8D",
+        //contrastText: "#60E0B1"
+      },
+      secondary: {
+        main: '#E0C2FF',
+        light: '#F5EBFF',
+        // dark: will be calculated from palette.secondary.main,
+        contrastText: '#47008F',
+      },
+    },
+  });
+
   return (
-    <>
+    <Container sx={{mt: 8}}>
+    <ThemeProvider theme={theme}>
     <Navbar />
       {/* <Navbar /> */}
 
@@ -34,7 +54,8 @@ function App() {
         <Route path="/signup" element = { <Signup /> }  />
         <Route path="/login" element = { <Login /> }  />
       </Routes>
-    </>
+    </ThemeProvider>
+    </Container>
   )
 }
 

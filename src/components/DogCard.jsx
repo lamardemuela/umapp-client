@@ -9,7 +9,8 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
-import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
@@ -33,14 +34,20 @@ function DogCard(props) {
     <Box className="boxCards">
       <Card sx={{ width: 500 }}>
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+          {/* CARD ICONOS */}
           <Typography component="div" variant="h6">
             {props.eachDog.name}
           </Typography>
-          <Link to={`/dog/${props.eachDog._id}`}>
+          <Box sx={{ display: "flex" }}>
+            <Link to={`/dog/${props.eachDog._id}`}>
+              <IconButton aria-label="ver detalles">
+                <EditRoundedIcon />
+              </IconButton>
+            </Link>
             <IconButton aria-label="ver detalles">
-              <ArrowForwardOutlinedIcon />
+              <DeleteRoundedIcon />
             </IconButton>
-          </Link>
+          </Box>
         </CardActions>
         <Box sx={{ display: "flex" }}>
           <CardMedia
