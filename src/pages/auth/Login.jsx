@@ -5,13 +5,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import service from "../../services/config.services";
 import { AuthContext } from "../../context/auth.context";
-import { useNavigate } from "react-router-dom";
 import RoleTabs from "../../components/RoleTabs";
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function Login() {
   // 🌐 context
-  const { authenticateUser } = useContext(AuthContext);
+  const { authenticateUser, isDogOwner, isDogTrainer, setTabsValue } = useContext(AuthContext);
 
   // ⛵️ navigate
   const navigate = useNavigate();
@@ -24,6 +25,16 @@ function Login() {
   // 🕹️ funciones de control
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  const handleRole = (e, newValue) => {
+    if(isDogOwner === true) {
+      newValue === 0
+      setTabsValue(newValue)
+    }else if(isDogTrainer === true){
+      newValue === 1
+      setTabsValue(newValue)
+    }
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -87,6 +98,10 @@ function Login() {
             <Button type="submit" variant="contained" color="primary">
               Iniciar sesión
             </Button>
+            <Typography variant="body2" gutterBottom>
+                ¿Todavía no tienes una cuenta?
+                <Button component={RouterLink} to="/signup" onClick={handleRole}> Regístrate </Button>
+            </Typography> 
           </Box>
         </form>
       </Box>

@@ -11,14 +11,16 @@ import Signup from './pages/auth/Signup';
 import Login from './pages/auth/Login';
 import SessionList from './pages/SessionList'
 import About from './pages/About'
+import NotFound from './pages/error/NotFound';
+import Error from './pages/error/Error'
 
 // componentes
 import MyProfile from './pages/MyProfile';
 import EditDogDetails from './pages/EditDogDetails';
 import Navbar from "./components/Navbar"
 import { Container } from '@mui/material';
-import NotFound from './pages/error/NotFound';
 import AddDog from './pages/AddDog';
+import Footer from './components/Footer';
 
 
 
@@ -41,28 +43,33 @@ function App() {
 
   return (
     <Container sx={{mt: 8}}>
-    <ThemeProvider theme={theme}>
-    <Navbar />
-      {/* <Navbar /> */}
+      <ThemeProvider theme={theme}>
 
-      <Routes>
-        <Route path="/" element={ <Home /> } />
-        <Route path="/session" element={ <SessionList /> } />
-        <Route path="/about" element={ <About /> } />
-        <Route path="/my-profile" element={ <MyProfile /> } />
-        <Route path="/dog/:dogId" element={ <EditDogDetails /> } />
-        <Route path="/add-dog" element={ <AddDog /> } />
+        {/* NAVBAR */}
+        <Navbar />
 
-        {/* RUTAS AUTH */}
-        <Route path="/signup" element = { <Signup /> }  />
-        <Route path="/login" element = { <Login /> }  />
+        <Routes>
+          <Route path="/" element={ <Home /> } />
+          <Route path="/session" element={ <SessionList /> } />
+          <Route path="/about" element={ <About /> } />
+          <Route path="/my-profile" element={ <MyProfile /> } />
+          <Route path="/dog/:dogId" element={ <EditDogDetails /> } />
+          <Route path="/add-dog" element={ <AddDog /> } />
 
-        {/* RUTAS ERROR */}
-        <Route path="*" element={ <NotFound /> } />
-        <Route path="/erro" element={ <Error /> } />
+          {/* RUTAS AUTH */}
+          <Route path="/signup" element = { <Signup /> }  />
+          <Route path="/login" element = { <Login /> }  />
 
-      </Routes>
-    </ThemeProvider>
+          {/* RUTAS ERROR */}
+          <Route path="*" element={ <NotFound /> } />
+          <Route path="/error" element={ <Error /> } />
+
+        </Routes>
+
+        {/* FOOTER */}
+        <Footer />
+        
+      </ThemeProvider>
     </Container>
   )
 }

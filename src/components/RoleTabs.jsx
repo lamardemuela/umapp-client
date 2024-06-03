@@ -8,12 +8,22 @@ import { AuthContext } from "../context/auth.context";
 function RoleTabs() {
  
   // 🌐 context
-  const { tabsValue, setTabsValue } = useContext(AuthContext)
+  const { tabsValue, setTabsValue, isDogOwner, isDogTrainer } = useContext(AuthContext)
 
   // 🕹️ funciones de control
   const handleChange = (event, newValue) => {
-    setTabsValue(newValue);
+    console.log(tabsValue);
+    if(isDogOwner === true) {
+      newValue === 0
+      setTabsValue(newValue)
+    }else if(isDogTrainer === true){
+      newValue === 1
+      setTabsValue(newValue)
+    }
   };
+
+  
+
   return (
     <Box sx={{ bgcolor: 'background.paper', display: "flex", justifyContent: "center" }}>
       <Tabs

@@ -89,7 +89,9 @@ function AuthWrapper(props) {
     tabsValue,
     setTabsValue,
     getUserInfo,
-    userInfo
+    userInfo,
+    setIsDogTrainer,
+    setIsDogOwner
   };
 
   useEffect(() => {
