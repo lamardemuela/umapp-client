@@ -1,5 +1,6 @@
+//* ⤵️ IMPORTS
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import service from "../services/config.services";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -10,14 +11,17 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import CardMedia from "@mui/material/CardMedia";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
 
-function DogDetails() {
-  const params = useParams();
-  console.log(params);
+
+function AddDog() {
+  // ⛵️ Navigate
+  const navigate = useNavigate();
 
   // 📦 Estados
-  const [dogDetails, setDogDetails] = useState(null);
-  const [img, setImg] = useState("");
+  // control de inputs:
   const [name, setName] = useState("");
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState("");
@@ -26,51 +30,42 @@ function DogDetails() {
   const [size, setSize] = useState("");
   const [dateOfAdquisition, setDateOfAdquisition] = useState("");
   const [description, setDescription] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  // 🧱 useEffect => llamada al backend (componentDidMount)
-  useEffect(() => {
-    getDogData();
-  }, []);
-
-  const getDogData = async () => {
-    try {
-      const response = await service.get(`/dog/${params.dogId}`);
-      console.log("mi perro", response.data);
-      setDogDetails(response.data);
-      setName(response.data.name);
-      setBreed(response.data.breed);
-      setAge(response.data.age);
-      setWeight(response.data.weight);
-      setDateOfAdquisition(response.data.dateOfAdquisition);
-      setDescription(response.data.description);
-      setSex(response.data.sex);
-      setSize(response.data.size);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // control cloudinary
+  const [imageUrl, setImageUrl] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   // 🕹️ funciones de control
-
   const handleName = (e) => {
-    setName(e.target.value)
-    setIsButtonDisabled(true)
-  } 
-  const handleBreed = (e) => setBreed(e.target.value);
-  const handleAge = (e) => setAge(e.target.value);
-  const handleWeight = (e) => setWeight(e.target.value);
-  const handleDateOfAdquisition = (e) => setDateOfAdquisition(e.target.value);
-  const handleDescription = (e) => setDescription(e.target.value);
-  const handleSex = (e) => setSex(e.target.value);
-  const handleSize = (e) => setSize(e.target.value);
-  //const handleIsButtonDisabled = () => setIsButtonDisabled(false)
+    setName(e.target.value);
+  };
+  const handleBreed = (e) => {
+    setBreed(e.target.value);
+  };
+  const handleAge = (e) => {
+    setAge(e.target.value);
+  };
+  const handleWeight = (e) => {
+    setWeight(e.target.value);
+  };
+  const handleDateOfAdquisition = (e) => {
+    setDateOfAdquisition(e.target.value);
+  };
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  const handleSex = (e) => {
+    setSex(e.target.value);
+  };
+  const handleSize = (e) => {
+    setSize(e.target.value);
+  };
 
-  const handleSaveChanges = async (e) => {
-    e.preventDefault()
+  const handleAddDog = async (e) => {
+    e.preventDefault();
 
-    // actualizamos datos del documento
-    const updatedDog = {
+    const newDog = {
       name,
       breed,
       age,
@@ -78,24 +73,53 @@ function DogDetails() {
       dateOfAdquisition,
       sex,
       size,
-      description
-    }
+      description,
+      image: imageUrl,
+    };
 
     try {
-      const response = await service.put(`/dog/${params.dogId}`, updatedDog)
+      const response = await service.post("/dog", newDog);
       console.log(response);
+      navigate("/my-profile")
     } catch (error) {
       console.log(error);
     }
+  };
 
-  }
+  const handleFileUpload = async (e) => {
+    if (!e.target.files[0]) {
+      return;
+    }
 
-  if (dogDetails === null) {
-    return <CircularProgress />;
-  }
+    setIsUploading(true);
+
+    const uploadData = new FormData();
+    uploadData.append("image", e.target.files[0]);
+
+    try {
+      const response = await service.post("/upload", uploadData);
+      setImageUrl(response.data.imageUrl);
+      setIsUploading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // styles hiddenInput
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
 
   return (
-    <Box >
+    <Box>
       <Box
         className="container"
         sx={{
@@ -106,40 +130,59 @@ function DogDetails() {
           // width: "100%"
         }}
       >
-        <Box
-          className="containerShadow"
-          sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "12px", paddingBottom: "12px", width: "100%" }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems:"flex-start" }}>
-            <Typography variant="h4" gutterBottom>
-              {dogDetails.name}
-            </Typography>
-
-            <Typography variant="subtitle2" gutterBottom>
-              Dueño: <Link to="/my-profile"> {dogDetails.dogOwner.name} </Link>
-            </Typography>
-          </Box>
-          <Box>
-          </Box>
-        </Box>
         <form
-          className="container containerShadow"
-          sx={{
+          className="container containerBorder"
+          style={{
             backgroundColor: "#fff",
             borderRadius: "24px",
-            marginTop: "24px",
+            width: "100%",
           }}
-          onSubmit={()=>{handleSaveChanges}}
+          onSubmit={handleAddDog}
         >
-          <div className="containerInputs">
+          <Box>
+          <Typography variant="subtitle2" gutterBottom>
+                <Link to="/my-profile"> Volver al perfil </Link>
+              </Typography>
+            <Typography variant="h4" gutterBottom>
+              Nuevo perro
+            </Typography>
+            <Button
+            sx={{borderRadius: "100px", boxShadow:"none"}}
+            color="secondary"
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              onChange={handleFileUpload}
+              disabled={isUploading}
+              onClick={() => setIsButtonDisabled(false)}
+            >
+              Cargar foto
+              <VisuallyHiddenInput type="file" />
+            </Button>
+          </Box>
+          {isUploading ? <h3>... uploading image</h3> : null}
+          {imageUrl ? (
+            <Box>
+              <img
+                src={imageUrl}
+                alt="img"
+                width={200}
+                style={{ borderRadius: "16px" }}
+              />
+            </Box>
+          ) : null}
+          <Box className="containerInputs">
             <TextField
+                required
               label="Nombre"
               variant="outlined"
               value={name}
               onChange={handleName}
-              //onClick={handleIsButtonDisabled}
             />
             <TextField
+            required
               label="Raza"
               variant="outlined"
               value={breed}
@@ -147,15 +190,15 @@ function DogDetails() {
               //onClick={handleIsButtonDisabled}
             />
             <TextField
-              type="number"
+            required
               label="Edad"
               variant="outlined"
               value={age}
               onChange={handleAge}
               //onClick={handleIsButtonDisabled}
             />
-          </div>
-          <div className="containerInputs">
+          </Box>
+          <Box className="containerInputs">
             <TextField
               type="number"
               label="Peso (kg)"
@@ -171,9 +214,10 @@ function DogDetails() {
               onChange={handleDateOfAdquisition}
               //onClick={handleIsButtonDisabled}
             />
-          </div>
+          </Box>
 
           <TextField
+          required
             id="outlined-multiline-static"
             label="Descripción"
             multiline
@@ -184,7 +228,7 @@ function DogDetails() {
             sx={{ width: "100%" }}
           />
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <FormLabel id="demo-row-radio-buttons-group-label">Sexo</FormLabel>
             <RadioGroup
               row
@@ -206,12 +250,13 @@ function DogDetails() {
                 //onClick={handleIsButtonDisabled}
               />
             </RadioGroup>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <FormLabel id="demo-row-radio-buttons-group-label">
               Tamaño
             </FormLabel>
             <RadioGroup
+            required
               row
               aria-labelledby="demo-controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
@@ -237,13 +282,20 @@ function DogDetails() {
                 //onClick={handleIsButtonDisabled}
               />
             </RadioGroup>
-          </div>
-          <Button type="submit" variant="contained" disabled = {isButtonDisabled}> Guardar cambios </Button>
-
+          </Box>
+          <Button
+            sx={{borderRadius: "100px", boxShadow:"none"}}
+            type="submit"
+            variant="contained"
+          >
+            {" "}
+            Añadir{" "}
+          </Button>
         </form>
       </Box>
     </Box>
   );
 }
 
-export default DogDetails;
+//* ⤴️ EXPORTS
+export default AddDog;

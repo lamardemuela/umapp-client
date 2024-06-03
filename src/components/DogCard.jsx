@@ -11,7 +11,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import service from "../services/config.services";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,13 +33,38 @@ const ExpandMore = styled((props) => {
 
 function DogCard(props) {
   const [expanded, setExpanded] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = () => setExpanded(!expanded)
+
+  const handleClickOpen = () => setOpenDialog(true)
+
+  const handleClose = () => setOpenDialog(false)
+  console.log(props.eachDog._id);
+
+  //🔗 DELETE "/api/dog/:dogId" => eliminar un perro
+  const deleteDog = async () => {
+    try {
+      await service.delete(`dog/${props.eachDog._id}`)
+      setOpenDialog(false)
+      props.getDogsData()
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
-    <Box className="boxCards">
-      <Card sx={{ width: 500 }}>
+    <Box>
+      <Card
+        sx={{
+          width: 525,
+          border: "1px solid #f7f2f7",
+          borderRadius: "12px",
+          boxShadow:
+            "0 0 1px rgba(85, 222, 246, 0.1), 1px 1px 1px -1px rgba(85, 222, 246, 0.15), 2px 4px 8px -2.5px rgba(85, 222, 246, 0.15)",
+          padding: "16px",
+        }}
+      >
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* CARD ICONOS */}
           <Typography component="div" variant="h6">
@@ -40,11 +72,11 @@ function DogCard(props) {
           </Typography>
           <Box sx={{ display: "flex" }}>
             <Link to={`/dog/${props.eachDog._id}`}>
-              <IconButton aria-label="ver detalles">
+              <IconButton aria-label="editar">
                 <EditRoundedIcon />
               </IconButton>
             </Link>
-            <IconButton aria-label="ver detalles">
+            <IconButton aria-label="eliminar" onClick={handleClickOpen}>
               <DeleteRoundedIcon />
             </IconButton>
           </Box>
@@ -52,7 +84,7 @@ function DogCard(props) {
         <Box sx={{ display: "flex" }}>
           <CardMedia
             component="img"
-            sx={{ width: 151 }}
+            sx={{ width: 151, borderRadius: "4px" }}
             image={props.eachDog.image}
             alt={props.eachDog.name}
           />
@@ -69,6 +101,12 @@ function DogCard(props) {
               </Typography>
               <Typography>
                 <b>Edad:</b> {props.eachDog.age}{" "}
+              </Typography>
+              <Typography>
+                <b>Peso:</b> {props.eachDog.weight}{" "}
+              </Typography>
+              <Typography>
+                <b>Fecha de adquisición:</b> {props.eachDog.dateOfAdquisition}{" "}
               </Typography>
             </CardContent>
           </Box>
@@ -91,6 +129,29 @@ function DogCard(props) {
           </CardContent>
         </Collapse>
       </Card>
+
+      {/* DIALOG */}
+      <Dialog
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {`Estás seguro de que quieres eliminar a este perro: ${props.eachDog.name}`}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Si haces click en Aceptar se borrará toda la información de este perro.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button type="submit" onClick={deleteDog} autoFocus>
+            Sí, eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

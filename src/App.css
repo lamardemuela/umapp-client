@@ -30,3 +30,30 @@
   padding: 40px;
   border: 1px solid #f7f2f7;
 }
+
+.containerBorder {
+  width: 100%;
+  border-radius: 12px;
+  padding: 40px;
+  border: 1px solid #f7f2f7;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}
+
+.containerBorderRow {
+  width: 100%;
+  border-radius: 12px;
+  padding: 40px;
+  border: 1px solid #f7f2f7;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}

@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import service from "../services/config.services";
 import DogCard from "../components/DogCard";
 import { Box } from "@mui/material";
-import CircularProgress from '@mui/material/CircularProgress';
-
+import CircularProgress from "@mui/material/CircularProgress";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function MyProfile() {
   // 🌐 context
@@ -26,6 +26,7 @@ function MyProfile() {
     }
   }, [userInfo]);
 
+  //🔗 GET "/api/dog" => listar perros
   const getDogsData = async () => {
     try {
       const response = await service.get("/dog");
@@ -35,32 +36,38 @@ function MyProfile() {
       console.log(error);
     }
   };
-  console.log(dogs);
+
   if (userInfo === null || dogs === null) {
-    return <CircularProgress />
+    return <CircularProgress />;
   }
 
   return (
     <Box className="container">
-      <h2>Tu perfil</h2>
-      <form className="container">
-        <div className="containerInputs">
-          <TextField label="Nombre" variant="outlined" value={name} />
-          <TextField label="Email" variant="outlined" value={email} />
-        </div>
-        <Button type="submit" variant="contained" color="primary">
-          Guardar cambios
-        </Button>
-      </form>
-
-      <h2>Tus perros</h2>
-      {dogs.map((eachDog) => {
-        return (
-          eachDog.dogOwner === userInfo._id && (
-            <DogCard key={eachDog._id} eachDog ={eachDog} />
-          )
-        );
-      })}
+      <Box className="containerBorder">
+        <h2>Tu perfil</h2>
+        <form className="container">
+          <Box className="containerInputs">
+            <TextField label="Nombre" variant="outlined" value={name} />
+            <TextField label="Email" variant="outlined" value={email} />
+          </Box>
+        </form>
+            <Button sx={{borderRadius: "100px", boxShadow:"none"}} type="submit" variant="contained" color="secondary">
+              Guardar cambios
+            </Button>
+      </Box>
+      <Box className="containerBorder" sx={{ width: "100%" }}>
+        <h2>Tus perros</h2>
+        <Button sx={{borderRadius: "100px", boxShadow:"none"}} type="submit" variant="contained" color="primary" component={RouterLink} to="/add-dog">
+              + Añadir perro
+            </Button>
+        {dogs.map((eachDog) => {
+          return (
+            eachDog.dogOwner === userInfo._id && (
+              <DogCard key={eachDog._id} eachDog={eachDog} getDogsData={getDogsData} />
+            )
+          );
+        })}
+      </Box>
     </Box>
   );
 }

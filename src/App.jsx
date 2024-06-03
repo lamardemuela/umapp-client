@@ -14,9 +14,11 @@ import About from './pages/About'
 
 // componentes
 import MyProfile from './pages/MyProfile';
-import DogDetails from './pages/DogDetails';
+import EditDogDetails from './pages/EditDogDetails';
 import Navbar from "./components/Navbar"
 import { Container } from '@mui/material';
+import NotFound from './pages/error/NotFound';
+import AddDog from './pages/AddDog';
 
 
 
@@ -25,14 +27,14 @@ function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#577B8D",
-        //contrastText: "#60E0B1"
+        main: "#515269",
+        contrastText: "#FFEEEC"
       },
       secondary: {
-        main: '#E0C2FF',
-        light: '#F5EBFF',
+        main: '#FFEEEC',
+        //light: '#F5EBFF',
         // dark: will be calculated from palette.secondary.main,
-        contrastText: '#47008F',
+        contrastText: '#515269',
       },
     },
   });
@@ -47,12 +49,18 @@ function App() {
         <Route path="/" element={ <Home /> } />
         <Route path="/session" element={ <SessionList /> } />
         <Route path="/about" element={ <About /> } />
-        <Route path="/dog/:dogId" element={ <DogDetails /> } />
         <Route path="/my-profile" element={ <MyProfile /> } />
+        <Route path="/dog/:dogId" element={ <EditDogDetails /> } />
+        <Route path="/add-dog" element={ <AddDog /> } />
 
         {/* RUTAS AUTH */}
         <Route path="/signup" element = { <Signup /> }  />
         <Route path="/login" element = { <Login /> }  />
+
+        {/* RUTAS ERROR */}
+        <Route path="*" element={ <NotFound /> } />
+        <Route path="/erro" element={ <Error /> } />
+
       </Routes>
     </ThemeProvider>
     </Container>
