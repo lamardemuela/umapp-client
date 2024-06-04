@@ -14,9 +14,8 @@ function DogOwnerHome() {
 
   // 📦 estados
   const [provinces, setProvinces] = useState(provincesData);
-  const [towns, setTowns] = useState(townsData);
 
-  console.log(provinces);
+  //console.log(provinces);
 
   return (
     <Container>

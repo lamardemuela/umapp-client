@@ -267,19 +267,16 @@ function AddDog() {
                 value="pequeño"
                 control={<Radio />}
                 label="Pequeño"
-                //onClick={handleIsButtonDisabled}
               />
               <FormControlLabel
                 value="mediano"
                 control={<Radio />}
                 label="Mediano"
-                //onClick={handleIsButtonDisabled}
               />
               <FormControlLabel
                 value="grande"
                 control={<Radio />}
                 label="Grande"
-                //onClick={handleIsButtonDisabled}
               />
             </RadioGroup>
           </Box>

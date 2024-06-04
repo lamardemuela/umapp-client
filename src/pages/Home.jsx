@@ -13,9 +13,9 @@ function Home() {
     <>
       {isLoggedIn === false && <HomePublic />}
 
-      {isDogTrainer === true && <DogTrainerHome />}
+      {isLoggedIn===true && isDogTrainer === true && <DogTrainerHome />}
 
-      {isDogOwner === true && <DogOwnerHome /> }
+      {isLoggedIn===true && isDogOwner === true && <DogOwnerHome /> }
     </>
     
   )

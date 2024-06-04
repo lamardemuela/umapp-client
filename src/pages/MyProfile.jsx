@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import service from "../services/config.services";
 import DogCard from "../components/DogCard";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 

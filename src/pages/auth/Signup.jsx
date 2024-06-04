@@ -214,28 +214,6 @@ function Signup() {
                 onChange={handleRatesChange}
               />
               <FormControl>
-                {/* <InputLabel id="demo-controlled-open-select-label">
-                  Servicios/especialidades
-                </InputLabel>
-                <Select
-                  // labelId="demo-controlled-open-select-label"
-                  id="demo-controlled-open-select"
-                  open={open}
-                  onClose={handleClose}
-                  onOpen={handleOpen}
-                  value={services}
-                  label="Servicios/especialidades"
-                  onChange={handleServicesChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {ServicesArr.map((eachService) => {
-                    return (
-                      <MenuItem key={eachService} value={eachService}> {eachService} </MenuItem>
-                    );
-                  })}
-                </Select> */}
                 <InputLabel id="demo-multiple-chip-label">
                   Servicios/especialidades
                 </InputLabel>
@@ -259,11 +237,8 @@ function Signup() {
                       ))}
                     </Box>
                   )}
-                  // MenuProps={MenuProps}
+
                 >
-                  {/* <MenuItem value="">
-                    <em>None</em> */}
-                  {/* </MenuItem> */}
                   {ServicesArr.map((eachService) => {
                     return (
                       <MenuItem key={eachService} value={eachService}>

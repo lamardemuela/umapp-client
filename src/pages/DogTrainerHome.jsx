@@ -6,8 +6,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 function DogTrainerHome() {
   return (
-    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", gap: "24px", width:"100%"}}>
-      <Box className="containerBorder" sx={{paddingRight:"0px", paddingLeft:"0"}}>
+    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", gap: "24px"}}>
+      <Box className="containerBorder" sx={{paddingRight:"0px", paddingLeft:"0", width:"100%"}}>
         <Typography variant="h6" gutterBottom>
                 Recuerda cómo funciona
         </Typography>
