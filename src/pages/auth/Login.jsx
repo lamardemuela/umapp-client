@@ -12,7 +12,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function Login() {
   // 🌐 context
-  const { authenticateUser, isDogOwner, isDogTrainer, setTabsValue } = useContext(AuthContext);
+  const { authenticateUser, setIsDogOwner, setIsDogTrainer, isDogTrainer, setTabsValue, tabsValue } = useContext(AuthContext);
 
   // ⛵️ navigate
   const navigate = useNavigate();
@@ -26,13 +26,13 @@ function Login() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handleRole = (e, newValue) => {
-    if(isDogOwner === true) {
-      newValue === 0
-      setTabsValue(newValue)
-    }else if(isDogTrainer === true){
-      newValue === 1
-      setTabsValue(newValue)
+  const handleRole = () => {
+    if(tabsValue === 0) {
+      setIsDogOwner(true)
+      setIsDogTrainer(false)
+    }else if(tabsValue === 1){
+      setIsDogOwner(false)
+      setIsDogTrainer(true)
     }
   }
 
