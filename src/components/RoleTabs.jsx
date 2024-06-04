@@ -1,25 +1,34 @@
 //* ⤵️ IMPORTS
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { AuthContext } from "../context/auth.context";
+import { useNavigate, useParams } from "react-router-dom";
 
-function RoleTabs() {
- 
+function RoleTabs({setRole}) {
+  const navigate = useNavigate()
+
+  const params = useParams()
+  console.log(params.tab)
+
   // 🌐 context
-  const { tabsValue, setTabsValue, isDogOwner, isDogTrainer } = useContext(AuthContext)
+  // const { isDogOwner, isDogTrainer } = useContext(AuthContext)
+  const [selectedTab, setSelectedTab] = useState(Number(params.tab))
+
 
   // 🕹️ funciones de control
   const handleChange = (event, newValue) => {
-    console.log(tabsValue);
-    if(isDogOwner === true) {
-      newValue === 0
-      setTabsValue(newValue)
-    }else if(isDogTrainer === true){
-      newValue === 1
-      setTabsValue(newValue)
+    if (newValue === 0) {
+      setSelectedTab(0)
+      setRole("dogOwner")
+      navigate("/signup/0")
+    } else {
+      setSelectedTab(1)
+      setRole("dogTrainer")
+      navigate("/signup/1")
     }
+    // navigate(`/signup/${newValue}`)
   };
 
   
@@ -27,7 +36,7 @@ function RoleTabs() {
   return (
     <Box sx={{ bgcolor: 'background.paper', display: "flex", justifyContent: "center" }}>
       <Tabs
-        value={tabsValue}
+        value={selectedTab}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons="auto"

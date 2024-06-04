@@ -14,7 +14,7 @@ function AuthWrapper(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isDogOwner, setIsDogOwner] = useState(true);
   const [isDogTrainer, setIsDogTrainer] = useState(false);
-  const [tabsValue, setTabsValue] = useState(0);
+  // const [tabsValue, setTabsValue] = useState(0);
   const [userInfo, setUserInfo] = useState(null)
   const [loadingUserInfo, setLoadingUserInfo] = useState(true);
 
@@ -47,11 +47,11 @@ function AuthWrapper(props) {
       if (response.data.payload.role === "dogTrainer") {
         setIsDogTrainer(true);
         setIsDogOwner(false);
-        setTabsValue(1);
+        // setTabsValue(1);
       } else if (response.data.payload.role === "dogOwner") {
         setIsDogTrainer(false);
         setIsDogOwner(true);
-        setTabsValue(0);
+        // setTabsValue(0);
       }
     } catch (error) {
       // si el token no es válido o ha expirado:
@@ -86,8 +86,8 @@ function AuthWrapper(props) {
     authenticateUser,
     isDogOwner,
     isDogTrainer,
-    tabsValue,
-    setTabsValue,
+    // tabsValue,
+    // setTabsValue,
     getUserInfo,
     userInfo,
     setIsDogTrainer,

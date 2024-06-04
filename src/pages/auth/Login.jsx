@@ -12,7 +12,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function Login() {
   // 🌐 context
-  const { authenticateUser, setIsDogOwner, setIsDogTrainer, isDogTrainer, setTabsValue, tabsValue } = useContext(AuthContext);
+  const { authenticateUser } = useContext(AuthContext);
 
   // ⛵️ navigate
   const navigate = useNavigate();
@@ -26,15 +26,7 @@ function Login() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handleRole = () => {
-    if(tabsValue === 0) {
-      setIsDogOwner(true)
-      setIsDogTrainer(false)
-    }else if(tabsValue === 1){
-      setIsDogOwner(false)
-      setIsDogTrainer(true)
-    }
-  }
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -68,7 +60,6 @@ function Login() {
   return (
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" justifyContent="center">
-        <RoleTabs />
 
         <h1> Iniciar sesión </h1>
 
@@ -100,7 +91,7 @@ function Login() {
             </Button>
             <Typography variant="body2" gutterBottom>
                 ¿Todavía no tienes una cuenta?
-                <Button component={RouterLink} to="/signup" onClick={handleRole}> Regístrate </Button>
+                <Button component={RouterLink} to="/signup/0"> Regístrate </Button>
             </Typography> 
           </Box>
         </form>

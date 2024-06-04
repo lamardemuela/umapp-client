@@ -3,20 +3,42 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import service from "../../services/config.services";
 import RoleTabs from "../../components/RoleTabs";
 import Container from "@mui/material/Container";
+import FormControl from "@mui/material/FormControl";
 import Autocomplete from "@mui/material/Autocomplete";
 import provincesData from "../../assets/data/provinces.json";
 import { AuthContext } from "../../context/auth.context";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Chip from '@mui/material/Chip';
 
 function Signup() {
-  const { tabsValue } = useContext(AuthContext)
-  console.log(tabsValue);
+  // services arr
+  const ServicesArr = [
+    "Servicio a domicilio",
+    "Adiestramiento y educación",
+    "Educación temprana",
+    "Corrección de conductas",
+    "Orientación del cachorro",
+    "Obediencia",
+    "Socialización",
+    "Entreamiento con correa",
+    "Entrenamiento en casa",
+    "Ansiedad por separación",
+    "Manejo de la agresión",
+    "Entrenamientos de perros de terapia",
+    "Enrenamiento de perros de servicio",
+    "Manejo de miedos y fobias",
+  ];
 
   const navigate = useNavigate();
+  const params = useParams();
 
   // 📦 estados
   const [name, setName] = useState("");
@@ -24,21 +46,29 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [province, setProvince] = useState(null);
   const [provincesDataSelect, setProvincesDataSelect] = useState(provincesData);
-  //const [town, setTown] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(
+    params.tab === "0" ? "dogOwner" : "dogTrainer"
+  );
+  const [rates, setRates] = useState("");
+  const [services, setServices] = useState([]);
+  const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   // 🕹️ funciones de control
   const handleNameChange = (e) => setName(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  // const handleProvinceChange = (e) => setProvince(e.target.value);
-  //const handleTownChange = (e) => setTown(e.target.value);
+  const handleRatesChange = (e) => setRates(e.target.value);
 
-      // gestión de rol
-      // {tabsValue === 0 && setRole("dogOwner")}
-      // {tabsValue === 1 && setRole("dogTrainer")}
-
+  const handleServicesChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setServices(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -49,7 +79,9 @@ function Signup() {
       email,
       password,
       province,
-      role
+      role,
+      rates,
+      services,
     };
     console.log(newUser);
 
@@ -67,73 +99,195 @@ function Signup() {
 
   return (
     <Container maxWidth="sm">
-      <Box display="flex" flexDirection="column" justifyContent="center">
-        <RoleTabs />
+      <RoleTabs role={role} setRole={setRole} />
 
-        <h1> Regístrate </h1>
+      {/* ROLE DOGOWNER */}
+      {role === "dogOwner" && (
+        <Box display="flex" flexDirection="column" justifyContent="center">
+          <h1> Regístrate </h1>
 
-        <form onSubmit={handleSignup}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            gap="24px"
-          >
-            <TextField
-              label="Nombre"
-              variant="outlined"
-              value={name}
-              onChange={handleNameChange}
-            />
-            <TextField
-              label="Email"
-              variant="outlined"
-              value={email}
-              onChange={handleEmailChange}
-            />
-            <TextField
-              type="password"
-              label="Password"
-              variant="outlined"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+          <form onSubmit={handleSignup}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              gap="24px"
+            >
+              <TextField
+                label="Nombre"
+                variant="outlined"
+                value={name}
+                onChange={handleNameChange}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={handleEmailChange}
+              />
+              <TextField
+                type="password"
+                label="Password"
+                variant="outlined"
+                value={password}
+                onChange={handlePasswordChange}
+              />
 
-            <Autocomplete
-              disablePortal
-              id="controllable-states-demo"
-              options={provincesDataSelect.map((eachProvince) => {
-                return eachProvince.label;
-              })}
-              renderInput={(params) => (
-                <TextField {...params} label="Provincia" />
+              <Autocomplete
+                disablePortal
+                id="controllable-states-demo"
+                options={provincesDataSelect.map((eachProvince) => {
+                  return eachProvince.label;
+                })}
+                renderInput={(params) => (
+                  <TextField {...params} label="Provincia" />
+                )}
+                value={province}
+                onChange={(event, newValue) => {
+                  setProvince(newValue);
+                }}
+              />
+              {errorMessage && (
+                <p style={{ color: "red", fontSize: "12px" }}>
+                  {" "}
+                  {errorMessage}{" "}
+                </p>
               )}
-              value={province}
-              onChange={(event, newValue) => {
-                setProvince(newValue);
-              }}
-            />
-            {/* <TextField
-            label="Provincia"
-            variant="outlined"
-            value={province}
-            onChange={handleProvinceChange}
-          /> */}
-            {/* <TextField
-            label="Municipio"
-            variant="outlined"
-            value={town}
-            onChange={handleTownChange}
-          /> */}
-            {errorMessage && (
-              <p style={{ color: "red", fontSize: "12px" }}> {errorMessage} </p>
-            )}
-            <Button type="submit" variant="contained">
-              Crear cuenta
-            </Button>
-          </Box>
-        </form>
-      </Box>
+              <Button type="submit" variant="contained">
+                Crear cuenta
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      )}
+
+      {/* ROLE DOGTRAINER */}
+      {role === "dogTrainer" && (
+        <Box display="flex" flexDirection="column" justifyContent="center">
+          <h1> Regístrate </h1>
+
+          <form onSubmit={handleSignup}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              gap="24px"
+            >
+              <TextField
+                label="Nombre"
+                variant="outlined"
+                value={name}
+                onChange={handleNameChange}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={handleEmailChange}
+              />
+              <TextField
+                type="password"
+                label="Password"
+                variant="outlined"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+
+              <Autocomplete
+                disablePortal
+                id="controllable-states-demo"
+                options={provincesDataSelect.map((eachProvince) => {
+                  return eachProvince.label;
+                })}
+                renderInput={(params) => (
+                  <TextField {...params} label="Provincia" />
+                )}
+                value={province}
+                onChange={(event, newValue) => {
+                  setProvince(newValue);
+                }}
+              />
+              <TextField
+                label="Tarifa (€/sesión)"
+                variant="outlined"
+                value={rates}
+                onChange={handleRatesChange}
+              />
+              <FormControl>
+                {/* <InputLabel id="demo-controlled-open-select-label">
+                  Servicios/especialidades
+                </InputLabel>
+                <Select
+                  // labelId="demo-controlled-open-select-label"
+                  id="demo-controlled-open-select"
+                  open={open}
+                  onClose={handleClose}
+                  onOpen={handleOpen}
+                  value={services}
+                  label="Servicios/especialidades"
+                  onChange={handleServicesChange}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {ServicesArr.map((eachService) => {
+                    return (
+                      <MenuItem key={eachService} value={eachService}> {eachService} </MenuItem>
+                    );
+                  })}
+                </Select> */}
+                <InputLabel id="demo-multiple-chip-label">
+                  Servicios/especialidades
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple
+                  // open={open}
+                  // onClose={handleClose}
+                  // onOpen={handleOpen}
+                  value={services}
+                  label="Servicios/especialidades"
+                  onChange={handleServicesChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  // MenuProps={MenuProps}
+                >
+                  {/* <MenuItem value="">
+                    <em>None</em> */}
+                  {/* </MenuItem> */}
+                  {ServicesArr.map((eachService) => {
+                    return (
+                      <MenuItem key={eachService} value={eachService}>
+                        {" "}
+                        {eachService}{" "}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+
+              {errorMessage && (
+                <p style={{ color: "red", fontSize: "12px" }}>
+                  {" "}
+                  {errorMessage}{" "}
+                </p>
+              )}
+              <Button type="submit" variant="contained">
+                Crear cuenta
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      )}
     </Container>
   );
 }

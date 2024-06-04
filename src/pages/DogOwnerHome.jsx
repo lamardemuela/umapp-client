@@ -3,7 +3,6 @@ import { AuthContext } from "../context/auth.context";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import provincesData from "../assets/data/provinces.json";
-import townsData from "../assets/data/towns.json";
 import Container from "@mui/system/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,7 +31,7 @@ function DogOwnerHome() {
         alignItems:"center"}}
       >
         
-        <Autocomplete
+        {/* <Autocomplete
           disablePortal
           id="combo-box-demo"
           options={towns.map((eachTown) => {
@@ -40,7 +39,7 @@ function DogOwnerHome() {
           })}
           sx={{ width: 400 }}
           renderInput={(params) => <TextField {...params} label="Localidad" />}
-        />
+        /> */}
 
         <Autocomplete
           disablePortal

@@ -173,7 +173,7 @@ function AppAppBar() {
                   variant="contained"
                   size="small"
                   component={RouterLink}
-                  to="/signup"
+                  to="/signup/0"
                 >
                   Regístrate
                 </Button>
@@ -287,7 +287,7 @@ function AppAppBar() {
                         color="primary"
                         variant="contained"
                         component={RouterLink}
-                        to="/signup"
+                        to="/signup/0"
                         sx={{ width: "100%" }}
                       >
                         Regístrate

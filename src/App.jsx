@@ -57,7 +57,7 @@ function App() {
           <Route path="/add-dog" element={ <AddDog /> } />
 
           {/* RUTAS AUTH */}
-          <Route path="/signup" element = { <Signup /> }  />
+          <Route path="/signup/:tab" element = { <Signup /> }  />
           <Route path="/login" element = { <Login /> }  />
 
           {/* RUTAS ERROR */}

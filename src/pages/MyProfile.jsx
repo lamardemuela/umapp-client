@@ -10,7 +10,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 function MyProfile() {
   // 🌐 context
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, isDogOwner, isDogTrainer } = useContext(AuthContext);
 
   // 📦 estados
   const [name, setName] = useState("");
@@ -55,19 +55,21 @@ function MyProfile() {
               Guardar cambios
             </Button>
       </Box>
-      <Box className="containerBorder" sx={{ width: "100%" }}>
-        <h2>Tus perros</h2>
-        <Button sx={{borderRadius: "100px", boxShadow:"none"}} type="submit" variant="contained" color="primary" component={RouterLink} to="/add-dog">
-              + Añadir perro
-            </Button>
-        {dogs.map((eachDog) => {
-          return (
-            eachDog.dogOwner === userInfo._id && (
-              <DogCard key={eachDog._id} eachDog={eachDog} getDogsData={getDogsData} />
-            )
-          );
-        })}
-      </Box>
+      {isDogOwner === true && (
+        <Box className="containerBorder" sx={{ width: "100%" }}>
+          <h2>Tus perros</h2>
+          <Button sx={{borderRadius: "100px", boxShadow:"none"}} type="submit" variant="contained" color="primary" component={RouterLink} to="/add-dog">
+                + Añadir perro
+              </Button>
+          {dogs.map((eachDog) => {
+            return (
+              eachDog.dogOwner === userInfo._id && (
+                <DogCard key={eachDog._id} eachDog={eachDog} getDogsData={getDogsData} />
+              )
+            );
+          })}
+        </Box>
+      )}
     </Box>
   );
 }
