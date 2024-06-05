@@ -65,10 +65,10 @@ function SessionCard(props) {
         <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* CARD ICONOS */}
           <Typography component="div" variant="h6">
-            {props.eachSession.dogOwner}
+            Propietario: {props.eachSession.dogOwner.name}
           </Typography>
           <Box sx={{ display: "flex" }}>
-            <Link to={`/dog/${props.eachSession._id}`}>
+            <Link to={`/session/${props.eachSession._id}`}>
               <IconButton aria-label="editar">
                 <EditRoundedIcon />
               </IconButton>
@@ -87,6 +87,9 @@ function SessionCard(props) {
           />
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContent className="cardInfo" sx={{ flex: "1 0 auto" }}>
+            <Typography>
+                <b>Nombre del perro:</b> {props.eachSession.dog.name}{" "}
+              </Typography>
               <Typography>
                 <b>Raza:</b> {props.eachSession.dog.breed}{" "}
               </Typography>
@@ -119,7 +122,7 @@ function SessionCard(props) {
         </Box>
 
         <CardActions disableSpacing>
-          <Typography sx={{ marginLeft: "12px" }}> Descripción </Typography>
+          <Typography sx={{ marginLeft: "12px" }}> Más información </Typography>
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -129,9 +132,9 @@ function SessionCard(props) {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout="auto" unmountOnExit >
           <b>Descripción del perro</b>
-          <CardContent>
+          <CardContent >
             <Typography paragraph>
               {" "}
               {props.eachSession.dog.description}{" "}

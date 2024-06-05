@@ -22,6 +22,7 @@ import { Container } from '@mui/material';
 import AddDog from './pages/AddDog';
 import Footer from './components/Footer';
 import AddSession from './pages/AddSession';
+import EditSessionDetails from './pages/EditSessionDetails';
 
 
 
@@ -53,6 +54,7 @@ function App() {
           <Route path="/" element={ <Home /> } />
           <Route path="/session" element={ <SessionList /> } />
           <Route path="/add-session" element={ <AddSession /> } />
+          <Route path="/session/:sessionId" element={ <EditSessionDetails /> } />
           <Route path="/about" element={ <About /> } />
           <Route path="/my-profile" element={ <MyProfile /> } />
           <Route path="/dog/:dogId" element={ <EditDogDetails /> } />

@@ -84,7 +84,7 @@ function DogCard(props) {
         <Box sx={{ display: "flex" }}>
           <CardMedia
             component="img"
-            sx={{ width: 151, borderRadius: "4px" }}
+            sx={{ width: 151, borderRadius: "4px", maxHeight: "200px" }}
             image={props.eachDog.image}
             alt={props.eachDog.name}
           />

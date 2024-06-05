@@ -11,10 +11,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 
-function AddSession() {
-  //const params = useParams();
+function EditSessionDetails() {
+  const params = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // 📦 estados
   const [dogOwner, setDogOwner] = useState("");
@@ -28,9 +28,42 @@ function AddSession() {
   const [openDogOwner, setOpenDogOwner] = React.useState(false);
   const [openDog, setOpenDog] = React.useState(false);
 
+  // 🧱 useEffect => llamada al backend (componentDidMount)
   useEffect(() => {
+    getSessionData();
     getDogOwnerUsers();
   }, []);
+
+  const getSessionData = async () => {
+    try {
+      // 🔗 GET "/api/session/:sessionId" => detalles de una Session
+      const response = await service.get(`/session/${params.sessionId}`);
+
+      // 🔗 GET "api/dog/:userId" => cogemos todos los perros del usuario seleccionado
+      const responseDogs = await service.get(
+        `/dog/dogOwner/${response.data.dogOwner}`
+      );
+      setDogsData(responseDogs.data);
+      setDogOwner(response.data.dogOwner);
+      setDog(response.data.dog._id);
+      setDay(response.data.day.slice(0, 10));
+      setHour(response.data.hour);
+      setLocation(response.data.location);
+      setNotes(response.data.notes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // data para select dogOwner
+  const getDogOwnerUsers = async () => {
+    try {
+      const response = await service.get("/user?role=dogOwner");
+      setDogOwnersData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // 🕹️ funciones de control
   const handleCloseDogOwerSelect = () => setOpenDogOwner(false);
@@ -38,34 +71,23 @@ function AddSession() {
   const handleCloseDogsSelect = () => setOpenDog(false);
   const handleOpenDogsSelect = () => setOpenDog(true);
 
-  // data para select dogOwner
-  const getDogOwnerUsers = async () => {
+  const handleDogOwnerChange = async (e) => {
+    setDogOwner(e.target.value);
+
     try {
-      const response = await service.get("/user?role=dogOwner");
-      //console.log(response.data);
-      setDogOwnersData(response.data);
+      // 🔗 GET "api/dog/:userId" => cogemos todos los perros del usuario seleccionado
+      const response = await service.get(`/dog/dogOwner/${e.target.value}`);
+      setDogsData(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleDogOwnerChange = async (e) => {
-    //console.log(e.target.value);
-    setDogOwner(e.target.value);
-    console.log("dogOwner", dogOwner);
-
-    // 🔗 GET "api/dog/:userId" => cogemos todos los perros del usuario seleccionado
-    const response = await service.get(`/dog/dogOwner/${e.target.value}`);
-    setDogsData(response.data);
-    // console.log(response.data);
-  };
-  console.log(dogsData);
-  console.log(dog);
-
-  const handleAddSession = async (e) => {
+  const handleSaveChanges = async (e) => {
     e.preventDefault();
 
-    const newSession = {
+    // actualizamos el documento
+    const updatedSession = {
       dogOwner,
       dog,
       day,
@@ -75,15 +97,14 @@ function AddSession() {
     };
 
     try {
-      const response = await service.post("/session", newSession);
-    //   console.log(response);
-      navigate("/session")
+      await service.put(`/session/${params.sessionId}`, updatedSession);
+      navigate("/session");
     } catch (error) {
       console.log(error);
     }
   };
 
-  if (dogOwnersData === null) {
+  if (dogOwnersData === null || dogsData === null) {
     return <CircularProgress />;
   }
 
@@ -106,14 +127,14 @@ function AddSession() {
             borderRadius: "24px",
             width: "100%",
           }}
-          onSubmit={handleAddSession}
+          onSubmit={handleSaveChanges}
         >
           <Box>
             <Typography variant="subtitle2" gutterBottom>
               <Link to="/session"> Volver a sesiones </Link>
             </Typography>
             <Typography variant="h4" gutterBottom>
-              Nueva Sesión
+              Editar Sesión
             </Typography>
           </Box>
           <Box
@@ -232,7 +253,7 @@ function AddSession() {
             variant="contained"
           >
             {" "}
-            Añadir{" "}
+            Guardar cambios{" "}
           </Button>
         </form>
       </Box>
@@ -240,4 +261,4 @@ function AddSession() {
   );
 }
 
-export default AddSession;
+export default EditSessionDetails;
