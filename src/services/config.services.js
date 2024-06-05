@@ -7,9 +7,6 @@ const service = axios.create({
     
 })
 
-console.log(service);
-
-
 // añadimos el token a todas las llamadas
 service.interceptors.request.use((config) => {
     const authToken = localStorage.getItem("authToken")

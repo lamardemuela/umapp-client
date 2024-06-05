@@ -58,7 +58,7 @@ function AppAppBar() {
     await authenticateUser();
 
     // 3. redireccionamos
-    navigate("/login");
+    navigate("/");
   };
 
   // cláusula de guardia

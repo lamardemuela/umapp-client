@@ -49,6 +49,7 @@ function Signup() {
   const [role, setRole] = useState(
     params.tab === "0" ? "dogOwner" : "dogTrainer"
   );
+  const [telephone, setTelephone] = useState("")
   const [rates, setRates] = useState("");
   const [services, setServices] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -59,6 +60,7 @@ function Signup() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRatesChange = (e) => setRates(e.target.value);
+  const handleTelephoneChange = (e) => setTelephone(e.target.value)
 
   const handleServicesChange = (event) => {
     const {
@@ -79,11 +81,11 @@ function Signup() {
       email,
       password,
       province,
+      telephone,
       role,
       rates,
       services,
     };
-    console.log(newUser);
 
     try {
       await service.post("/auth/signup", newUser);
@@ -188,6 +190,7 @@ function Signup() {
               <TextField
                 type="password"
                 label="Password"
+                helperText="Mín. 8 caracteres, una minúscula, una mayúscula y un número"
                 variant="outlined"
                 value={password}
                 onChange={handlePasswordChange}
@@ -206,6 +209,15 @@ function Signup() {
                 onChange={(event, newValue) => {
                   setProvince(newValue);
                 }}
+              />
+              <TextField
+              required
+                type="number"
+                label="Teléfono"
+                variant="outlined"
+                value={telephone}
+                onChange={handleTelephoneChange}
+                helperText="Usaremos tu teléfono para que los dueños de perros puedan contactar contigo"
               />
               <TextField
                 label="Tarifa (€/sesión)"
