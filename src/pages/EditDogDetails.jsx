@@ -46,7 +46,7 @@ function DogDetails() {
   const getDogData = async () => {
     try {
       const response = await service.get(`/dog/${params.dogId}`);
-      console.log("mi perro", response.data);
+      // console.log("mi perro", response.data);
       setDogDetails(response.data);
       setName(response.data.name);
       setBreed(response.data.breed);
@@ -113,8 +113,8 @@ function DogDetails() {
     };
 
     try {
-      const response = await service.put(`/dog/${params.dogId}`, updatedDog);
-      console.log(response);
+      await service.put(`/dog/${params.dogId}`, updatedDog);
+      navigate("/my-profile")
     } catch (error) {
       console.log(error);
     }

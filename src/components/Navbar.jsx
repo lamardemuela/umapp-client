@@ -28,7 +28,7 @@ function AppAppBar() {
   // 🌐 context
   const { authenticateUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
   // 📦 estados
   const [open, setOpen] = React.useState(false);
   const [userName, setUserName] = useState(null);
@@ -42,7 +42,7 @@ function AppAppBar() {
       setUserName(userInfo.name)
     }
   }, [userInfo])
-  console.log(userName);
+  // console.log(userName);
 
   // 🕹️ funciones de control
   const toggleDrawer = (newOpen) => () => {

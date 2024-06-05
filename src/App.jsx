@@ -13,16 +13,18 @@ import SessionList from './pages/SessionList'
 import About from './pages/About'
 import NotFound from './pages/error/NotFound';
 import Error from './pages/error/Error'
-
-// componentes
-import MyProfile from './pages/MyProfile';
-import EditDogDetails from './pages/EditDogDetails';
-import Navbar from "./components/Navbar"
-import { Container } from '@mui/material';
-import AddDog from './pages/AddDog';
-import Footer from './components/Footer';
 import AddSession from './pages/AddSession';
 import EditSessionDetails from './pages/EditSessionDetails';
+import AddDog from './pages/AddDog';
+import MyProfile from './pages/MyProfile';
+import EditDogDetails from './pages/EditDogDetails';
+
+// componentes
+import Navbar from "./components/Navbar"
+import { Container } from '@mui/material';
+import Footer from './components/Footer';
+
+
 
 
 
@@ -55,6 +57,7 @@ function App() {
           <Route path="/session" element={ <SessionList /> } />
           <Route path="/add-session" element={ <AddSession /> } />
           <Route path="/session/:sessionId" element={ <EditSessionDetails /> } />
+
           <Route path="/about" element={ <About /> } />
           <Route path="/my-profile" element={ <MyProfile /> } />
           <Route path="/dog/:dogId" element={ <EditDogDetails /> } />

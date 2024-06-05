@@ -36,7 +36,7 @@ function AuthWrapper(props) {
     // 2. 🔗 GET "/api/auth/verify" => enviamos el token al backend para validarlo
     try {
       const response = await service.get("/auth/verify");
-      console.log(response);
+      // console.log(response);
 
       // si el token es válido:
       setIsLoggedIn(true);
@@ -70,7 +70,7 @@ function AuthWrapper(props) {
   const getUserInfo = async () => {
     try {
         const response = await service.get(`/user/owner`);
-        console.log("mi usuario", response);
+        // console.log("mi usuario", response);
         setUserInfo(response.data)
         // setLoadingUserInfo(false); // Indicar que la carga ha finalizado
     } catch (error) {

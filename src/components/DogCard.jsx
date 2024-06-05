@@ -40,7 +40,7 @@ function DogCard(props) {
   const handleClickOpen = () => setOpenDialog(true)
 
   const handleClose = () => setOpenDialog(false)
-  console.log(props.eachDog._id);
+  // console.log(props.eachDog._id);
 
   //🔗 DELETE "/api/dog/:dogId" => eliminar un perro
   const deleteDog = async () => {

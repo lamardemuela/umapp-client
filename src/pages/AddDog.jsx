@@ -79,7 +79,7 @@ function AddDog() {
 
     try {
       const response = await service.post("/dog", newDog);
-      console.log(response);
+      // console.log(response);
       navigate("/my-profile")
     } catch (error) {
       console.log(error);

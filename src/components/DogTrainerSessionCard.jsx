@@ -117,7 +117,7 @@ function SessionCard(props) {
             <b>Hora:</b> {props.eachSession.hour}{" "}
           </Typography>
           <Typography sx={{display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:"start"}}>
-            <b>Ubicación:</b> {props.eachSession.location}{" "}
+            <b>Lugar:</b> {props.eachSession.location}{" "}
           </Typography>
         </Box>
 

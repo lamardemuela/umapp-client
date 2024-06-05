@@ -10,7 +10,7 @@ function RoleTabs({setRole}) {
   const navigate = useNavigate()
 
   const params = useParams()
-  console.log(params.tab)
+  // console.log(params.tab)
 
   // 🌐 context
   // const { isDogOwner, isDogTrainer } = useContext(AuthContext)

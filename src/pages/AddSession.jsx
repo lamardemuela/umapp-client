@@ -59,8 +59,8 @@ function AddSession() {
     setDogsData(response.data);
     // console.log(response.data);
   };
-  console.log(dogsData);
-  console.log(dog);
+  // console.log(dogsData);
+  // console.log(dog);
 
   const handleAddSession = async (e) => {
     e.preventDefault();
