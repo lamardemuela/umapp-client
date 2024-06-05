@@ -37,7 +37,7 @@ function SessionList() {
   }
 
   return (
-    <Box className="containerBorder" sx={{ width: "100%" }}>
+    <Box className="containerBorder" sx={{ width: "100%", paddingLef:"0", paddingRight:"0" }}>
       <h2>Tus sesiones</h2>
       {isDogTrainer === true && (
         <Button
@@ -51,18 +51,10 @@ function SessionList() {
         + Añadir sesión
         </Button>
       )}
-      
-      {/* {sessionList.map((eachSession) => {
-        return(
-          isDogTrainer === true ? 
-            <DogTrainerSessionCard key={eachSession._id} eachSession={eachSession} getSessionData={getSessionData} />
-            : <DogOwnerSessionCard key={eachSession._id} eachSession={eachSession} />
-        )
-      })} */}
 
       {isDogTrainer === true && (
         sessionList.map((eachSession) => {
-          <DogTrainerSessionCard key={eachSession._id} eachSession={eachSession} getSessionData={getSessionData} />
+          return <DogTrainerSessionCard key={eachSession._id} eachSession={eachSession} getSessionData={getSessionData} />
         })
       )}
       {isDogOwner === true && (

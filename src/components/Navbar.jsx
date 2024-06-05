@@ -61,14 +61,6 @@ function AppAppBar() {
     navigate("/");
   };
 
-  // cláusula de guardia
-//   if (userInfo === null || userName === null) {
-//     return <h2>pruebas</h2>;
-//   }
-
-//   if (loadingUserInfo) {
-//     return <CircularProgress />;
-//   }
 
   return (
     <div>

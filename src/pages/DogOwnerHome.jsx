@@ -42,7 +42,6 @@ function DogOwnerHome() {
     <Container maxWidth="sm">
       <Box sx={{display:"flex", flexDirection:"column", gap:"16px", justifyContent:"center", alignItems:"center"}}>
         <Box className="containerBorder" sx={{paddingLeft:"0", paddingRight:"0", width: "100%", gap:"8px"}}>
-          {/* <h1> Hola </h1> */}
           <h3> Encuentra al mejor amigo de tu mejor amigo </h3>
           <p>Buscador de educadores caninos</p>
 
