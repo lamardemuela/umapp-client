@@ -33,7 +33,7 @@ function AppAppBar() {
   // 📦 estados
   const [open, setOpen] = React.useState(false);
   const [userName, setUserName] = useState(null);
-  const [picProfile, setPicProfile] = useState("")
+  // const [picProfile, setPicProfile] = useState("")
 
   // ⛵️ navigate
   const navigate = useNavigate();
@@ -192,10 +192,9 @@ function AppAppBar() {
                     aria-expanded={open ? "true" : undefined}
                   >
                     {userInfo && userInfo.name && <Avatar
-                      src={picProfile}
                       component={RouterLink}
                       to="/my-profile"
-                      sx={{ width: 32, height: 32 }} />
+                      sx={{ width: 32, height: 32, textDecoration:"none" }}> {userInfo.name[0].toUpperCase()} </Avatar>
                            
                     }
                   </IconButton>

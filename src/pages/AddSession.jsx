@@ -152,7 +152,7 @@ function AddSession() {
               <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
-                disabled={ dogsData === null ? true : false}
+                // disabled={ dogsData === null ? true : false}
                 open={openDog}
                 onClose={handleCloseDogsSelect}
                 onOpen={handleOpenDogsSelect}
