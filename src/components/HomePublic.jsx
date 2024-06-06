@@ -8,7 +8,7 @@ import dogTrainerVector from "../assets/images/dog-trainer-vector.svg"
 function HomePublic() {
   return (
     <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", gap: "24px", width:"100%"}}>
-      <Box className="containerBorder" sx={{paddingRight:"0px", paddingLeft:"0"}}>
+      <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px"}}>
         <Typography variant="h6" gutterBottom>
                 ¿Qué es umapp?
         </Typography>

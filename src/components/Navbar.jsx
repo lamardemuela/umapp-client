@@ -1,3 +1,4 @@
+//* ⤵️ IMPORTS
 import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -32,6 +33,7 @@ function AppAppBar() {
   // 📦 estados
   const [open, setOpen] = React.useState(false);
   const [userName, setUserName] = useState(null);
+  const [picProfile, setPicProfile] = useState("")
 
   // ⛵️ navigate
   const navigate = useNavigate();
@@ -40,6 +42,7 @@ function AppAppBar() {
   useEffect(() => {
     if(userInfo !== null){
       setUserName(userInfo.name)
+      setPicProfile(userInfo.picProfile)
     }
   }, [userInfo])
   // console.log(userName);
@@ -134,7 +137,7 @@ function AppAppBar() {
                     variant="body2"
                     color="text.primary"
                     component={RouterLink}
-                    to="/session"
+                    to="/about"
                   >
                     Sobre nosotros
                   </Typography>
@@ -188,14 +191,13 @@ function AppAppBar() {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                   >
-                    {userInfo && userInfo.name && (
-                      <Avatar
+                    {userInfo && userInfo.name && <Avatar
+                      src={picProfile}
                       component={RouterLink}
                       to="/my-profile"
-                      sx={{ width: 32, height: 32 }}>
-                        {userInfo.name[0].toUpperCase()}
-                      </Avatar>
-                    )}
+                      sx={{ width: 32, height: 32 }} />
+                           
+                    }
                   </IconButton>
                 </Tooltip>
                 <Button
@@ -259,7 +261,7 @@ function AppAppBar() {
                         variant="body2"
                         color="text.primary"
                         component={RouterLink}
-                        to="/session"
+                        to={isLoggedIn === true ? "/session" : "/session-public"}
                       >
                         Sesiones
                       </Typography>
@@ -269,7 +271,7 @@ function AppAppBar() {
                         variant="body2"
                         color="text.primary"
                         component={RouterLink}
-                        to="/session"
+                        to="/about"
                       >
                         Sobre nosotros
                       </Typography>
@@ -333,10 +335,46 @@ function AppAppBar() {
                         flexGrow: 1,
                       }}
                     ></Box>
-                    <MenuItem>Inicio</MenuItem>
-                    <MenuItem>Sesiones</MenuItem>
-                    <MenuItem>Mi perfil</MenuItem>
-                    <MenuItem>Sobre nosotros</MenuItem>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to="/"
+                      >
+                        Inicio
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to={isLoggedIn === true ? "/session" : "/session-public"}
+                      >
+                        Sesiones
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to="/about"
+                      >
+                        Sobre nosotros
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem sx={{ py: "6px", px: "12px" }}>
+                      <Typography
+                        variant="body2"
+                        color="text.primary"
+                        component={RouterLink}
+                        to="/my-profile"
+                      >
+                        Mi perfil
+                      </Typography>
+                    </MenuItem>
                     <Divider />
                     <MenuItem>
                       <Button
@@ -361,4 +399,5 @@ function AppAppBar() {
   );
 }
 
+//* ⤴️ EXPORTS
 export default AppAppBar;

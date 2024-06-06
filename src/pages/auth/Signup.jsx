@@ -1,7 +1,7 @@
 //* ⤵️ IMPORTS
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import service from "../../services/config.services";
@@ -10,12 +10,13 @@ import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
 import Autocomplete from "@mui/material/Autocomplete";
 import provincesData from "../../assets/data/provinces.json";
-import { AuthContext } from "../../context/auth.context";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import Chip from '@mui/material/Chip';
+import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
+import { Link as RouterLink } from "react-router-dom";
 
 function Signup() {
   // services arr
@@ -48,7 +49,7 @@ function Signup() {
   const [role, setRole] = useState(
     params.tab === "0" ? "dogOwner" : "dogTrainer"
   );
-  const [telephone, setTelephone] = useState("")
+  const [telephone, setTelephone] = useState("");
   const [rates, setRates] = useState("");
   const [services, setServices] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -59,7 +60,7 @@ function Signup() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRatesChange = (e) => setRates(e.target.value);
-  const handleTelephoneChange = (e) => setTelephone(e.target.value)
+  const handleTelephoneChange = (e) => setTelephone(e.target.value);
 
   const handleServicesChange = (event) => {
     const {
@@ -67,7 +68,7 @@ function Signup() {
     } = event;
     setServices(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
@@ -210,7 +211,7 @@ function Signup() {
                 }}
               />
               <TextField
-              required
+                required
                 type="number"
                 label="Teléfono"
                 variant="outlined"
@@ -232,9 +233,6 @@ function Signup() {
                   labelId="demo-multiple-chip-label"
                   id="demo-multiple-chip"
                   multiple
-                  // open={open}
-                  // onClose={handleClose}
-                  // onOpen={handleOpen}
                   value={services}
                   label="Servicios/especialidades"
                   onChange={handleServicesChange}
@@ -248,7 +246,6 @@ function Signup() {
                       ))}
                     </Box>
                   )}
-
                 >
                   {servicesArr.map((eachService) => {
                     return (
@@ -274,6 +271,13 @@ function Signup() {
           </form>
         </Box>
       )}
+      <Typography variant="body2" gutterBottom>
+        ¿Ya tienes una cuenta?
+        <Button component={RouterLink} to="/login">
+          {" "}
+          Inicia sesión{" "}
+        </Button>
+      </Typography>
     </Container>
   );
 }

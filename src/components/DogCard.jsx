@@ -40,7 +40,6 @@ function DogCard(props) {
   const handleClickOpen = () => setOpenDialog(true)
 
   const handleClose = () => setOpenDialog(false)
-  // console.log(props.eachDog._id);
 
   //🔗 DELETE "/api/dog/:dogId" => eliminar un perro
   const deleteDog = async () => {
@@ -56,8 +55,8 @@ function DogCard(props) {
   return (
     <Box>
       <Card
+        className="card"
         sx={{
-          width: 525,
           border: "1px solid #f7f2f7",
           borderRadius: "12px",
           boxShadow:
@@ -81,7 +80,7 @@ function DogCard(props) {
             </IconButton>
           </Box>
         </CardActions>
-        <Box sx={{ display: "flex" }}>
+        <Box className="containerCardInfoImg">
           <CardMedia
             component="img"
             sx={{ width: 151, borderRadius: "4px", maxHeight: "200px" }}

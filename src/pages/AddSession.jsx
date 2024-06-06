@@ -57,10 +57,7 @@ function AddSession() {
     // 🔗 GET "api/dog/:userId" => cogemos todos los perros del usuario seleccionado
     const response = await service.get(`/dog/dogOwner/${e.target.value}`);
     setDogsData(response.data);
-    // console.log(response.data);
   };
-  // console.log(dogsData);
-  // console.log(dog);
 
   const handleAddSession = async (e) => {
     e.preventDefault();
@@ -75,8 +72,7 @@ function AddSession() {
     };
 
     try {
-      const response = await service.post("/session", newSession);
-    //   console.log(response);
+      await service.post("/session", newSession);
       navigate("/session")
     } catch (error) {
       console.log(error);
@@ -96,7 +92,6 @@ function AddSession() {
           marginTop: "24px",
           paddingTop: "24px",
           paddingBottom: "24px",
-          // width: "100%"
         }}
       >
         <form
@@ -126,10 +121,9 @@ function AddSession() {
           >
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-controlled-open-select-label">
-                Selecciona al propietario del perro
+                Propietario del perro
               </InputLabel>
               <Select
-                //labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
                 open={openDogOwner}
                 onClose={handleCloseDogOwerSelect}
@@ -151,11 +145,12 @@ function AddSession() {
 
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-controlled-open-select-label">
-                Selecciona al perro
+                Perro
               </InputLabel>
               <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
+                disabled={ dogsData === null ? true : false}
                 open={openDog}
                 onClose={handleCloseDogsSelect}
                 onOpen={handleOpenDogsSelect}
@@ -176,25 +171,23 @@ function AddSession() {
               Cuándo y dónde será la sesión
             </InputLabel>
             <Box
+              className="containerCardInfoImg"
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: "32px",
+                gap: "24px",
                 alignItems: "center",
-                flexWrap: "wrap",
+                width:"100%"
               }}
             >
               <TextField
                 required
                 type="date"
-                // label="Día"
                 variant="outlined"
                 value={day}
                 onChange={(e) => {
                   setDay(e.target.value);
                   console.log(e.target.value);
                 }}
-                sx={{ width: "31%" }}
+                sx={{ width: "100%" }}
               />
 
               <TextField
@@ -203,7 +196,7 @@ function AddSession() {
                 variant="outlined"
                 value={hour}
                 onChange={(e) => setHour(e.target.value)}
-                sx={{ width: "31%" }}
+                sx={{ width: "100%" }}
               />
               <TextField
                 required
@@ -211,7 +204,7 @@ function AddSession() {
                 variant="outlined"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                sx={{ width: "31%" }}
+                sx={{ width: "100%" }}
               />
             </Box>
 

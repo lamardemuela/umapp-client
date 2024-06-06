@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/auth.context";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import provincesData from "../assets/data/provinces.json";
-import Container from "@mui/system/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Link as RouterLink } from "react-router-dom";
 import service from "../services/config.services";
 import CircularProgress from "@mui/material/CircularProgress";
 import DogTrainerCard from "../components/DogTrainerCard";
-import { Typography } from "@mui/material";
 
 function DogOwnerHome() {
 
@@ -39,15 +35,15 @@ function DogOwnerHome() {
   }
 
   return (
-    <Container maxWidth="sm">
       <Box sx={{display:"flex", flexDirection:"column", gap:"16px", justifyContent:"center", alignItems:"center"}}>
-        <Box className="containerBorder" sx={{paddingLeft:"0", paddingRight:"0", width: "100%", gap:"8px"}}>
+        <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px"}}>
           <h3> Encuentra al mejor amigo de tu mejor amigo </h3>
           <p>Buscador de educadores caninos</p>
 
           <Autocomplete
             disablePortal
             id="controllable-states-demo"
+            className="inputs"
             value={provinceValue}
             onChange={(event, newValue) => {
               setProvinceValue(newValue);
@@ -55,7 +51,6 @@ function DogOwnerHome() {
             options={provinces.map((eachProvince) => {
               return eachProvince.label;
             })}
-            sx={{ width: 400 }}
             renderInput={(params) => <TextField {...params} label="Provincia" />}
           />
 
@@ -82,7 +77,6 @@ function DogOwnerHome() {
           })}
         </Box>
       </Box>
-    </Container>
   );
 }
 

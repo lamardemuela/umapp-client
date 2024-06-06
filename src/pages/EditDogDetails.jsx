@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 
 function DogDetails() {
   const params = useParams();
@@ -158,16 +159,9 @@ function DogDetails() {
   }
 
   return (
-    <Box>
+    <Container maxWidth="md">
       <Box
-        className="container"
-        sx={{
-          borderRadius: "24px",
-          marginTop: "24px",
-          paddingTop: "24px",
-          paddingBottom: "24px",
-          // width: "100%"
-        }}
+        sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", gap:"24px", padding: "40px", borderRadius:"12px", marginBottom:"16px"}}
       >
         <Box
           className="containerBorderRow"
@@ -240,21 +234,14 @@ function DogDetails() {
               Cambiar foto
               <VisuallyHiddenInput type="file" />
             </Button>
-            {/* <label>Image: </label>
-            <input
-              type="file"
-              name="image"
-              onChange={handleFileUpload}
-              disabled={isUploading}
-            /> */}
           </Box>
-          {isUploading ? <h3>... uploading image</h3> : null}
+          {isUploading ? <CircularProgress /> : null}
           {imageUrl ? (
             <Box>
               <img
                 src={imageUrl}
                 alt="img"
-                width={200}
+                height={180}
                 style={{ borderRadius: "16px" }}
               />
             </Box>
@@ -366,7 +353,7 @@ function DogDetails() {
           </Box>
         </form>
       </Box>
-    </Box>
+    </Container>
   );
 }
 

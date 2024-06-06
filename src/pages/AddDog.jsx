@@ -1,8 +1,7 @@
 //* ⤵️ IMPORTS
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import service from "../services/config.services";
-import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
@@ -11,9 +10,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CardMedia from "@mui/material/CardMedia";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
+import CircularProgress from "@mui/material/CircularProgress";
+import Container from '@mui/material/Container';
 
 
 function AddDog() {
@@ -78,8 +78,7 @@ function AddDog() {
     };
 
     try {
-      const response = await service.post("/dog", newDog);
-      // console.log(response);
+      await service.post("/dog", newDog);
       navigate("/my-profile")
     } catch (error) {
       console.log(error);
@@ -119,24 +118,13 @@ function AddDog() {
   });
 
   return (
-    <Box>
+    <Container maxWidth="md">
       <Box
-        className="container"
-        sx={{
-          borderRadius: "24px",
-          marginTop: "24px",
-          paddingTop: "24px",
-          paddingBottom: "24px",
-          // width: "100%"
-        }}
+        sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px", marginBottom:"16px"}}
       >
         <form
-          className="container containerBorder"
-          style={{
-            backgroundColor: "#fff",
-            borderRadius: "24px",
-            width: "100%",
-          }}
+          // className="container"
+          style={{ display: "flex", flexDirection: "column", gap: "16px", justifyContent:"center", alignItems:"center" }}
           onSubmit={handleAddDog}
         >
           <Box>
@@ -162,22 +150,23 @@ function AddDog() {
               <VisuallyHiddenInput type="file" />
             </Button>
           </Box>
-          {isUploading ? <h3>... uploading image</h3> : null}
+          {isUploading ? <CircularProgress /> : null}
           {imageUrl ? (
             <Box>
               <img
                 src={imageUrl}
                 alt="img"
-                width={200}
+                height={180}
                 style={{ borderRadius: "16px" }}
               />
             </Box>
           ) : null}
-          <Box className="containerInputs">
+
             <TextField
                 required
               label="Nombre"
               variant="outlined"
+              className="inputs"
               value={name}
               onChange={handleName}
             />
@@ -185,36 +174,35 @@ function AddDog() {
             required
               label="Raza"
               variant="outlined"
+              className="inputs"
               value={breed}
               onChange={handleBreed}
-              //onClick={handleIsButtonDisabled}
             />
             <TextField
             required
               label="Edad"
               variant="outlined"
+              className="inputs"
               value={age}
               onChange={handleAge}
-              //onClick={handleIsButtonDisabled}
             />
-          </Box>
-          <Box className="containerInputs">
+
+
             <TextField
               type="number"
               label="Peso (kg)"
               variant="outlined"
+              className="inputs"
               value={weight}
               onChange={handleWeight}
-              //onClick={handleIsButtonDisabled}
             />
             <TextField
               label="Fecha de adquisición"
               variant="outlined"
+              className="inputs"
               value={dateOfAdquisition}
               onChange={handleDateOfAdquisition}
-              //onClick={handleIsButtonDisabled}
             />
-          </Box>
 
           <TextField
           required
@@ -224,11 +212,10 @@ function AddDog() {
             rows={3}
             value={description}
             onChange={handleDescription}
-            //onClick={handleIsButtonDisabled}
-            sx={{ width: "100%" }}
+            className="inputs"
           />
 
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "8px"}}>
             <FormLabel id="demo-row-radio-buttons-group-label">Sexo</FormLabel>
             <RadioGroup
               row
@@ -241,13 +228,11 @@ function AddDog() {
                 value="hembra"
                 control={<Radio />}
                 label="Hembra"
-                //onClick={handleIsButtonDisabled}
               />
               <FormControlLabel
                 value="macho"
                 control={<Radio />}
                 label="Macho"
-                //onClick={handleIsButtonDisabled}
               />
             </RadioGroup>
           </Box>
@@ -290,7 +275,7 @@ function AddDog() {
           </Button>
         </form>
       </Box>
-    </Box>
+    </Container>
   );
 }
 

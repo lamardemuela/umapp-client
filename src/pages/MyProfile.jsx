@@ -12,36 +12,7 @@ import EditDTrainerProfile from "../components/EditDTrainerProfile";
 
 function MyProfile() {
   // 🌐 context
-  const { userInfo, isDogOwner, isDogTrainer } = useContext(AuthContext);
-
-  // // 📦 estados
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [dogs, setDogs] = useState(null);
-
-  // // 🧱 useEffect => llamada al backend (componentDidMount)
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     setName(userInfo.name);
-  //     setEmail(userInfo.email);
-  //     getDogsData();
-  //   }
-  // }, [userInfo]);
-
-  // //🔗 GET "/api/dog" => listar perros
-  // const getDogsData = async () => {
-  //   try {
-  //     const response = await service.get("/dog");
-  //     setDogs(response.data);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // if (userInfo === null || dogs === null) {
-  //   return <CircularProgress />;
-  // }
+  const { isDogOwner, isDogTrainer } = useContext(AuthContext);
 
   return (
     <>

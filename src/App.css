@@ -57,3 +57,30 @@
   flex-wrap: wrap;
   background-color: #ffffff;
 }
+
+.inputs {
+  width: 450px;
+}
+
+.card{
+  width: 500px;
+}
+
+.containerCardInfoImg{
+  display: flex;
+}
+
+@media (width < 760px){
+  .inputs {
+    width: 250px;
+  }
+  
+  .card{
+    width: 250px;
+  }
+
+  .containerCardInfoImg{
+    display: flex;
+    flex-direction: column;
+  }
+}

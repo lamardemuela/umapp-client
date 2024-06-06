@@ -6,8 +6,6 @@ import provincesData from "../assets/data/provinces.json";
 import service from "../services/config.services";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import DogCard from "../components/DogCard";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -19,6 +17,7 @@ import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Chip from '@mui/material/Chip';
 import MenuItem from "@mui/material/MenuItem";
+import Container from '@mui/material/Container';
 
 function EditDTrainerProfile() {
     // services arr
@@ -151,28 +150,11 @@ function EditDTrainerProfile() {
     return <CircularProgress />;
   }
   return (
-    <Stack
-      spacing={{ xs: 1, sm: 2 }}
-      justifyContent="center"
-      alignItems="center"
-      sx={{ width: "100%" }}
-    >
-      <Stack
-        spacing={{ xs: 1, sm: 2 }}
-        useFlexGap
-        justifyContent="center"
-        alignItems="center"
-        flexWrap="wrap"
-        sx={{
-          width: "100%",
-          backgroundColor: "#fff",
-          borderRadius: "12px",
-          border: "1px solid #f7f2f7",
-          padding: "32px",
-        }}
+    <Container maxWidth="md">
+      <Box
+        sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px", marginBottom:"16px"}}
       >
         <h2>Tu perfil</h2>
-        {/*  */}
         <Button
           component="label"
           role={undefined}
@@ -191,7 +173,7 @@ function EditDTrainerProfile() {
             <img
               src={picProfile}
               alt="img"
-              width={200}
+              height={180}
               style={{ borderRadius: "16px" }}
             />
           </Box>
@@ -200,21 +182,21 @@ function EditDTrainerProfile() {
           <TextField
             label="Nombre"
             variant="outlined"
-            sx={{width:"600px"}}
+            className="inputs"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
             label="Email"
             variant="outlined"
-            sx={{width:"600px"}}
+            className="inputs"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
         <Autocomplete
           disablePortal
-          sx={{ width: "600px" }}
+          className="inputs"
           id="controllable-states-demo"
           options={provincesDataSelect.map((eachProvince) => {
             return eachProvince.label;
@@ -230,7 +212,7 @@ function EditDTrainerProfile() {
                 type="number"
                 label="Teléfono"
                 variant="outlined"
-                sx={{width:"600px"}}
+                className="inputs"
                 value={telephone}
                 onChange={(e) => setTelephone(e.target.value)}
                 helperText="Usaremos tu teléfono para que los dueños de perros puedan contactar contigo"
@@ -238,7 +220,7 @@ function EditDTrainerProfile() {
               <TextField
                 label="Tarifa (€/sesión)"
                 variant="outlined"
-                sx={{width:"600px"}}
+                className="inputs"
                 value={rates}
                 onChange={(e) => setRates(e.target.value)}
               />
@@ -250,7 +232,7 @@ function EditDTrainerProfile() {
                   labelId="demo-multiple-chip-label"
                   id="demo-multiple-chip"
                   multiple
-                  sx={{width:"600px"}}
+                  className="inputs"
                   value={services}
                   label="Servicios/especialidades"
                   onChange={(e) => setServices(e.target.value)}
@@ -287,7 +269,7 @@ function EditDTrainerProfile() {
         >
           Guardar cambios
         </Button>
-      </Stack>
+      </Box>
       <Snackbar
         open={openSnackBar}
         autoHideDuration={6000}
@@ -295,7 +277,7 @@ function EditDTrainerProfile() {
         message="Los cambios se han guardado correctamente"
         action={action}
       />
-    </Stack>
+    </Container>
   );
 }
 

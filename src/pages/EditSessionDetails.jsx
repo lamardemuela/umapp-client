@@ -147,7 +147,7 @@ function EditSessionDetails() {
           >
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-controlled-open-select-label">
-                Selecciona al propietario del perro
+                Propietario del perro
               </InputLabel>
               <Select
                 //labelId="demo-controlled-open-select-label"
@@ -172,7 +172,7 @@ function EditSessionDetails() {
 
             <FormControl sx={{ width: "100%" }}>
               <InputLabel id="demo-controlled-open-select-label">
-                Selecciona al perro
+                Perro
               </InputLabel>
               <Select
                 labelId="demo-controlled-open-select-label"
@@ -197,12 +197,11 @@ function EditSessionDetails() {
               Cuándo y dónde será la sesión
             </InputLabel>
             <Box
+              className="containerCardInfoImg"
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: "32px",
+                gap: "24px",
                 alignItems: "center",
-                flexWrap: "wrap",
+                width:"100%"
               }}
             >
               <TextField
@@ -215,7 +214,7 @@ function EditSessionDetails() {
                   setDay(e.target.value);
                   console.log(e.target.value);
                 }}
-                sx={{ width: "31%" }}
+                sx={{ width: "100%" }}
               />
 
               <TextField
@@ -224,7 +223,7 @@ function EditSessionDetails() {
                 variant="outlined"
                 value={hour}
                 onChange={(e) => setHour(e.target.value)}
-                sx={{ width: "31%" }}
+                sx={{ width: "100%" }}
               />
               <TextField
                 required
@@ -232,7 +231,7 @@ function EditSessionDetails() {
                 variant="outlined"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                sx={{ width: "31%" }}
+                sx={{ width: "100%" }}
               />
             </Box>
 

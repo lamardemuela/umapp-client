@@ -37,7 +37,9 @@ function SessionList() {
   }
 
   return (
-    <Box className="containerBorder" sx={{ width: "100%", paddingLef:"0", paddingRight:"0" }}>
+    <Box 
+    sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", gap:"24px"}}
+    >
       <h2>Tus sesiones</h2>
       {isDogTrainer === true && (
         <Button

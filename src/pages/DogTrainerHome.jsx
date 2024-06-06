@@ -6,8 +6,17 @@ import { Link as RouterLink } from "react-router-dom";
 
 function DogTrainerHome() {
   return (
-    <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", gap: "24px"}}>
-      <Box className="containerBorder" sx={{paddingRight:"0px", paddingLeft:"0", width:"100%"}}>
+    <Box sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ffffff",
+        gap: "24px",
+        padding: "40px",
+        border: "1px solid #f7f2f7",
+        borderRadius: "12px",
+      }}>
         <Typography variant="h6" gutterBottom>
                 Recuerda cómo funciona
         </Typography>
@@ -23,7 +32,7 @@ function DogTrainerHome() {
         <Typography variant="body1" gutterBottom>
                 3️⃣ ❤️‍🩹 Lleva un seguimiento y anota los avances o comentarios de cada sesión
         </Typography>
-      </Box>
+
       <Button sx={{borderRadius: "100px", boxShadow:"none"}} type="submit" variant="contained" color="primary" component={RouterLink} to="/session">
                 Ir a sesiones
       </Button>

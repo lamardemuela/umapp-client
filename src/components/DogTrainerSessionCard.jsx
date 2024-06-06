@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -53,8 +53,8 @@ function SessionCard(props) {
   return (
     <Box>
       <Card
+        className="card"
         sx={{
-          width: 525,
           border: "1px solid #f7f2f7",
           borderRadius: "12px",
           boxShadow:
@@ -62,9 +62,9 @@ function SessionCard(props) {
           padding: "16px",
         }}
       >
-        <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <CardActions sx={{ display: "flex", justifyContent: "space-between", alignItems:"center" }}>
           {/* CARD ICONOS */}
-          <Typography component="div" variant="h6">
+          <Typography variant="h6">
             Propietario: {props.eachSession.dogOwner.name}
           </Typography>
           <Box sx={{ display: "flex" }}>
@@ -78,10 +78,10 @@ function SessionCard(props) {
             </IconButton>
           </Box>
         </CardActions>
-        <Box sx={{ display: "flex" }}>
+        <Box className="containerCardInfoImg">
           <CardMedia
             component="img"
-            sx={{ width: 151, borderRadius: "4px", maxHeight: "200px" }}
+            sx={{ width: 151, borderRadius: "4px", maxHeight: "200px", minHeight:"50px" }}
             image={props.eachSession.dog.image}
             alt={props.eachSession.dog.name}
           />

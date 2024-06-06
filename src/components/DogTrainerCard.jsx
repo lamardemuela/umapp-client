@@ -32,8 +32,8 @@ function DogTrainerCard(props) {
   return (
     <Box>
       <Card
+        className="card"
         sx={{
-          width: 525,
           border: "1px solid #f7f2f7",
           borderRadius: "12px",
           boxShadow:
