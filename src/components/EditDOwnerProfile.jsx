@@ -6,7 +6,7 @@ import service from "../services/config.services";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import DogCard from "../components/DogCard";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -15,6 +15,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Container from '@mui/material/Container';
 
 function EditDOwnerProfile() {
+  const navigate = useNavigate()
+
   // 🌐 Context
   const { userInfo } = useContext(AuthContext);
 
@@ -52,6 +54,7 @@ function EditDOwnerProfile() {
       console.log(response);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -74,6 +77,7 @@ function EditDOwnerProfile() {
       setOpenSnackBar(true)
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -94,6 +98,7 @@ function EditDOwnerProfile() {
       setIsUploading(false);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

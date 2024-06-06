@@ -46,6 +46,7 @@ function AddSession() {
       setDogOwnersData(response.data);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -76,6 +77,7 @@ function AddSession() {
       navigate("/session")
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

@@ -17,7 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import service from "../services/config.services";
 
 const ExpandMore = styled((props) => {
@@ -32,6 +32,8 @@ const ExpandMore = styled((props) => {
 }));
 
 function DogCard(props) {
+  const navigate = useNavigate()
+
   const [expanded, setExpanded] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -49,6 +51,7 @@ function DogCard(props) {
       props.getDogsData()
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

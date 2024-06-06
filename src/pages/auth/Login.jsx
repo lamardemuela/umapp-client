@@ -83,7 +83,7 @@ function Login() {
 
             {errorMessage && <p style={{color:"red", fontSize:"12px"}}> {errorMessage} </p>}
 
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" sx={{ borderRadius: "100px", boxShadow: "none" }}>
               Iniciar sesión
             </Button>
             <Typography variant="body2" gutterBottom>

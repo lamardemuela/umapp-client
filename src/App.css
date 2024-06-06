@@ -74,7 +74,7 @@
   .inputs {
     width: 250px;
   }
-  
+
   .card{
     width: 250px;
   }
@@ -82,5 +82,9 @@
   .containerCardInfoImg{
     display: flex;
     flex-direction: column;
+  }
+
+  .imgError{
+    width: 300px;
   }
 }

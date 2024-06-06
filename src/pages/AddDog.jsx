@@ -82,6 +82,7 @@ function AddDog() {
       navigate("/my-profile")
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -101,6 +102,7 @@ function AddDog() {
       setIsUploading(false);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 

@@ -7,8 +7,11 @@ import Button from "@mui/material/Button";
 import service from "../services/config.services";
 import CircularProgress from "@mui/material/CircularProgress";
 import DogTrainerCard from "../components/DogTrainerCard";
+import { useNavigate } from "react-router-dom";
 
 function DogOwnerHome() {
+
+  const navigate = useNavigate()
 
   // 📦 estados
   const [provinceValue, setProvinceValue] = useState(null);
@@ -22,7 +25,7 @@ function DogOwnerHome() {
       console.log(response);
       setDogTrainerUsers(response.data);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 

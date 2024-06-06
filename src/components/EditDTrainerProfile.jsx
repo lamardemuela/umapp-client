@@ -18,6 +18,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import Chip from '@mui/material/Chip';
 import MenuItem from "@mui/material/MenuItem";
 import Container from '@mui/material/Container';
+import { useNavigate } from "react-router-dom";
 
 function EditDTrainerProfile() {
     // services arr
@@ -37,6 +38,9 @@ function EditDTrainerProfile() {
     "Enrenamiento de perros de servicio",
     "Manejo de miedos y fobias",
   ];
+
+  const navigate = useNavigate()
+
   // 🌐 Context
   const { userInfo } = useContext(AuthContext);
 
@@ -92,6 +96,7 @@ function EditDTrainerProfile() {
       setOpenSnackBar(true);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
@@ -112,6 +117,7 @@ function EditDTrainerProfile() {
       setIsUploading(false);
     } catch (error) {
       console.log(error);
+      navigate("/error")
     }
   };
 
