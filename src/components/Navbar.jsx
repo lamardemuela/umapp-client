@@ -42,7 +42,7 @@ function AppAppBar() {
   useEffect(() => {
     if(userInfo !== null){
       setUserName(userInfo.name)
-      setPicProfile(userInfo.picProfile)
+      // setPicProfile(userInfo.picProfile)
     }
   }, [userInfo])
   // console.log(userName);
