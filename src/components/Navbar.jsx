@@ -124,7 +124,7 @@ function AppAppBar() {
                     variant="body2"
                     color="text.primary"
                     component={RouterLink}
-                    to="/session"
+                    to={isLoggedIn === true ? "/session" : "/session-public"}
                   >
                     Sesiones
                   </Typography>

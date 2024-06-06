@@ -1,7 +1,6 @@
 //* ⤵️ IMPORTS
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -20,7 +19,7 @@ import Chip from '@mui/material/Chip';
 
 function Signup() {
   // services arr
-  const ServicesArr = [
+  const servicesArr = [
     "Servicio a domicilio",
     "Adiestramiento y educación",
     "Educación temprana",
@@ -251,7 +250,7 @@ function Signup() {
                   )}
 
                 >
-                  {ServicesArr.map((eachService) => {
+                  {servicesArr.map((eachService) => {
                     return (
                       <MenuItem key={eachService} value={eachService}>
                         {" "}

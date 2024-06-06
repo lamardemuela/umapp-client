@@ -23,9 +23,9 @@ function HomePublic() {
         </Typography>
       </Box>
 
-      <Box sx={{display:"flex", justifyContent:"center", gap: "24px", alignItems:"center"}}>
+      <Box sx={{display:"flex", justifyContent:"center", gap: "24px", alignItems:"center", flexWrap:"wrap"}}>
         {/* ACCESO DUEÑO PERRO */}
-        <Box className="containerBorder" sx={{width:"100%"}} >
+        <Box className="containerBorder" sx={{width:"400px"}} >
         <Box sx={{display: "flex", flexDirection:"column", gap:"0"}}>
             <Typography variant="h6" gutterBottom>
               Soy educador canino
@@ -41,7 +41,7 @@ function HomePublic() {
         </Box>
 
         {/* ACCESO EDUCADOR CANINO */}
-        <Box className="containerBorder" sx={{width:"100%"}}>
+        <Box className="containerBorder" sx={{width:"400px"}}>
           <Box sx={{display: "flex", flexDirection:"column", gap:"0"}}>
             <Typography variant="h6" gutterBottom>
               ¿Buscas un educador canino?
@@ -56,9 +56,6 @@ function HomePublic() {
           </Button>
         </Box>
     </Box>
-
-      {/* {isDogOwner === true && <DogOwnerHome />}
-      {isDogTrainer === true && <DogTrainerHome />} */}
     </Box>
   )
 }

@@ -23,7 +23,8 @@ import EditDogDetails from './pages/EditDogDetails';
 import Navbar from "./components/Navbar"
 import { Container } from '@mui/material';
 import Footer from './components/Footer';
-
+import SessionPublic from "./components/SessionPublic"
+import OnlyPrivate from './components/OnlyPrivate';
 
 
 
@@ -38,8 +39,6 @@ function App() {
       },
       secondary: {
         main: '#FFEEEC',
-        //light: '#F5EBFF',
-        // dark: will be calculated from palette.secondary.main,
         contrastText: '#515269',
       },
     },
@@ -53,15 +52,16 @@ function App() {
         <Navbar />
 
         <Routes>
+          <Route path="/session-public" element={ <SessionPublic /> } />
           <Route path="/" element={ <Home /> } />
-          <Route path="/session" element={ <SessionList /> } />
-          <Route path="/add-session" element={ <AddSession /> } />
-          <Route path="/session/:sessionId" element={ <EditSessionDetails /> } />
+          <Route path="/session" element={ <OnlyPrivate> <SessionList /> </OnlyPrivate>  } />
+          <Route path="/add-session" element={ <OnlyPrivate> <AddSession /> </OnlyPrivate> } />
+          <Route path="/session/:sessionId" element={ <OnlyPrivate> <EditSessionDetails /> </OnlyPrivate> } />
 
           <Route path="/about" element={ <About /> } />
-          <Route path="/my-profile" element={ <MyProfile /> } />
-          <Route path="/dog/:dogId" element={ <EditDogDetails /> } />
-          <Route path="/add-dog" element={ <AddDog /> } />
+          <Route path="/my-profile" element={ <OnlyPrivate> <MyProfile /> </OnlyPrivate> } />
+          <Route path="/dog/:dogId" element={ <OnlyPrivate> <EditDogDetails /> </OnlyPrivate> } />
+          <Route path="/add-dog" element={ <OnlyPrivate> <AddDog /> </OnlyPrivate> } />
 
           {/* RUTAS AUTH */}
           <Route path="/signup/:tab" element = { <Signup /> }  />
