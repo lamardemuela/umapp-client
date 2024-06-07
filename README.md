@@ -22,6 +22,7 @@
 - React Router Dom
 - React Context
 - Axios
+
 **Backend** 
 - Javascript
 . Node JS 
@@ -59,8 +60,6 @@ Functionalities I wish to add to this proyect later:
 - **My Profile** - If I am a user with the role of dog owner, I want to view and edit my profile information and have full CRUD functionality for my dogs. If I am a user with the role of dog trainer, I want to view and edit my profile information.
 
 ## Client Routes
-
-Frontend routes:
 
 ## React Router Routes (React App)
 | Path                      | Page            | Components        | Permissions              | Behavior                                                      |
