@@ -8,7 +8,7 @@
 🌟 On one hand, umapp is born to connect users with dogs and dog trainers. Sometimes it can be difficult to find a dog trainer in your city, and you don't know where to start.
 
 🌟 On the other hand, umapp aims to solve and digitize the management of dog trainers with their clients, allowing for tracking that serves both parties.
-**NOTE -** Describe your project in one/two lines.
+
 #### [Client Repo here](https://github.com/lamardemuela/umapp-client)
 #### [Server Repo here](https://github.com/lamardemuela/umapp-server)
 
@@ -30,7 +30,7 @@
 - Mongoose
 - JWT auth. 
 
-**Libreries**
+**Libraries**
 - MUI: Material UI
 - Cloudinary
 
@@ -98,10 +98,6 @@ Frontend routes:
 [Repository Link Server](https://github.com/lamardemuela/umapp-server)
 
 [Deploy Link](https://umapp.netlify.app/)
-
-### Trello
-
-[Link to your trello board](www.your-trello-url-here.com)
 
 ### Slides
 
