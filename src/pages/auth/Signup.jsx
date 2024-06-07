@@ -154,7 +154,7 @@ function Signup() {
                   {errorMessage}{" "}
                 </p>
               )}
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" sx={{ borderRadius: "100px", boxShadow: "none" }}>
                 Crear cuenta
               </Button>
             </Box>
