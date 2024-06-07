@@ -106,11 +106,14 @@ function AppAppBar() {
                 px: 0,
               }}
             >
-              <img
-                src={logo}
-                style={logoStyle}
-                alt="logo of sitemark"
-              />
+              <RouterLink to="/">
+                <img
+                  src={logo}
+                  style={logoStyle}
+                  alt="logo of sitemark"
+                />
+              </RouterLink>
+              
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <MenuItem sx={{ py: "6px", px: "12px" }}>
                   <Typography
