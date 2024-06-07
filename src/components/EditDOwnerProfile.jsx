@@ -51,9 +51,7 @@ function EditDOwnerProfile() {
     try {
       const response = await service.get("/dog");
       setDogs(response.data);
-      console.log(response);
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };
@@ -76,7 +74,6 @@ function EditDOwnerProfile() {
       await service.put("/user/owner", updatedUser);
       setOpenSnackBar(true)
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };
@@ -97,7 +94,6 @@ function EditDOwnerProfile() {
       setPicProfile(response.data.imageUrl);
       setIsUploading(false);
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };

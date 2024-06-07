@@ -7,8 +7,9 @@ import uma from "../assets/images/uma-perro.jpeg"
 
 function About() {
   return (
-    <Box sx={{display:"flex", flexDirection:"column", gap:"16px"}}>
+    <Box sx={{display:"flex", flexDirection:"column", gap:"16px", justifyContent:"center", alignItems:"center"}}>
       <Box
+      className = "containersAbout"
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -16,9 +17,9 @@ function About() {
           alignItems: "center",
           backgroundColor: "#ffffff",
           gap: "24px",
-          padding: "80px",
+          padding: "30px",
           border: "1px solid #f7f2f7",
-          borderRadius: "12px",
+          borderRadius: "12px"
         }}
       >
         <Typography variant="h6" gutterBottom>
@@ -36,6 +37,7 @@ function About() {
       </Box>
 
       <Box
+      className = "containersAbout"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -43,7 +45,7 @@ function About() {
         alignItems: "center",
         backgroundColor: "#ffffff",
         gap: "24px",
-        padding: "80px",
+        padding: "30px",
         border: "1px solid #f7f2f7",
         borderRadius: "12px",
       }}

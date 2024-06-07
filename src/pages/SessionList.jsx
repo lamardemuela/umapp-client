@@ -9,6 +9,7 @@ import { AuthContext } from "../context/auth.context";
 import DogOwnerSessionCard from "../components/DogOwnerSessionCard";
 
 function SessionList() {
+  const navigate = useNavigate()
 
   // 🌐 Context
   const {isDogTrainer, isDogOwner, loggedUserId } = useContext(AuthContext)
@@ -25,12 +26,10 @@ function SessionList() {
     try {
       const response = await service.get("/session");
       setSessionList(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
-  console.log(sessionList);
 
   if (sessionList === null) {
     return <CircularProgress />;

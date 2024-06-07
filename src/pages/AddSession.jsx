@@ -42,18 +42,14 @@ function AddSession() {
   const getDogOwnerUsers = async () => {
     try {
       const response = await service.get("/user?role=dogOwner");
-      //console.log(response.data);
       setDogOwnersData(response.data);
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };
 
   const handleDogOwnerChange = async (e) => {
-    //console.log(e.target.value);
     setDogOwner(e.target.value);
-    console.log("dogOwner", dogOwner);
 
     // 🔗 GET "api/dog/:userId" => cogemos todos los perros del usuario seleccionado
     const response = await service.get(`/dog/dogOwner/${e.target.value}`);
@@ -76,7 +72,6 @@ function AddSession() {
       await service.post("/session", newSession);
       navigate("/session")
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };
@@ -152,7 +147,6 @@ function AddSession() {
               <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
-                // disabled={ dogsData === null ? true : false}
                 open={openDog}
                 onClose={handleCloseDogsSelect}
                 onOpen={handleOpenDogsSelect}
@@ -187,7 +181,6 @@ function AddSession() {
                 value={day}
                 onChange={(e) => {
                   setDay(e.target.value);
-                  console.log(e.target.value);
                 }}
                 sx={{ width: "100%" }}
               />

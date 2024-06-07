@@ -51,7 +51,7 @@ function EditSessionDetails() {
       setLocation(response.data.location);
       setNotes(response.data.notes);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
@@ -61,7 +61,7 @@ function EditSessionDetails() {
       const response = await service.get("/user?role=dogOwner");
       setDogOwnersData(response.data);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
@@ -79,7 +79,7 @@ function EditSessionDetails() {
       const response = await service.get(`/dog/dogOwner/${e.target.value}`);
       setDogsData(response.data);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
@@ -100,7 +100,7 @@ function EditSessionDetails() {
       await service.put(`/session/${params.sessionId}`, updatedSession);
       navigate("/session");
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
@@ -212,7 +212,6 @@ function EditSessionDetails() {
                 value={day}
                 onChange={(e) => {
                   setDay(e.target.value);
-                  console.log(e.target.value);
                 }}
                 sx={{ width: "100%" }}
               />

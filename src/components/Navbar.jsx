@@ -29,11 +29,11 @@ function AppAppBar() {
   // 🌐 context
   const { authenticateUser, isLoggedIn, userInfo } =
     useContext(AuthContext);
-    // console.log(isLoggedIn);
+  
   // 📦 estados
   const [open, setOpen] = React.useState(false);
   const [userName, setUserName] = useState(null);
-  // const [picProfile, setPicProfile] = useState("")
+  const [picProfile, setPicProfile] = useState("")
 
   // ⛵️ navigate
   const navigate = useNavigate();
@@ -42,10 +42,10 @@ function AppAppBar() {
   useEffect(() => {
     if(userInfo !== null){
       setUserName(userInfo.name)
-      // setPicProfile(userInfo.picProfile)
+      setPicProfile(userInfo.picProfile)
     }
   }, [userInfo])
-  // console.log(userName);
+ 
 
   // 🕹️ funciones de control
   const toggleDrawer = (newOpen) => () => {
@@ -191,11 +191,16 @@ function AppAppBar() {
                     aria-haspopup="true"
                     aria-expanded={open ? "true" : undefined}
                   >
+                    {/* {userInfo && userInfo.name && <Avatar
+                      component={RouterLink}
+                      to="/my-profile"
+                      sx={{ width: 32, height: 32, textDecoration:"none" }}> {userInfo.name[0].toUpperCase()} </Avatar>                          
+                    } */}
                     {userInfo && userInfo.name && <Avatar
                       component={RouterLink}
                       to="/my-profile"
-                      sx={{ width: 32, height: 32, textDecoration:"none" }}> {userInfo.name[0].toUpperCase()} </Avatar>
-                           
+                      sx={{ width: 32, height: 32, textDecoration:"none" }}
+                      src= {picProfile} />                        
                     }
                   </IconButton>
                 </Tooltip>

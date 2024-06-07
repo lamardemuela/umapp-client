@@ -8,6 +8,7 @@ import service from "../services/config.services";
 import CircularProgress from "@mui/material/CircularProgress";
 import DogTrainerCard from "../components/DogTrainerCard";
 import { useNavigate } from "react-router-dom";
+import animation from "../assets/images/animation-purple.gif"
 
 function DogOwnerHome() {
 
@@ -22,7 +23,6 @@ function DogOwnerHome() {
   const getAllTrainers = async () => {
     try {
       const response = await service.get("/dog-trainer");
-      console.log(response);
       setDogTrainerUsers(response.data);
     } catch (error) {
       navigate("/error")
@@ -40,6 +40,9 @@ function DogOwnerHome() {
   return (
       <Box sx={{display:"flex", flexDirection:"column", gap:"16px", justifyContent:"center", alignItems:"center"}}>
         <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px"}}>
+
+          <img src={animation} alt="animacion" style={{marginBottom:"-50px", height:"100px"}} />
+
           <h3> Encuentra al mejor amigo de tu mejor amigo </h3>
           <p>Buscador de educadores caninos</p>
 

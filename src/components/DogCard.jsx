@@ -50,7 +50,6 @@ function DogCard(props) {
       setOpenDialog(false)
       props.getDogsData()
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };

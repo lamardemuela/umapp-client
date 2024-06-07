@@ -94,8 +94,7 @@ function Signup() {
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.errorMessage);
       }
-      // => navigate /error page
-      console.log(error);
+      navigate("/error")
     }
   };
 

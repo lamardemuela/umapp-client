@@ -8,6 +8,7 @@ const AuthContext = createContext();
 
 // componente envoltorio
 function AuthWrapper(props) {
+
   // 📦 estados
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUserId, setLoggedUserId] = useState(null);
@@ -34,7 +35,6 @@ function AuthWrapper(props) {
     // 2. 🔗 GET "/api/auth/verify" => enviamos el token al backend para validarlo
     try {
       const response = await service.get("/auth/verify");
-      // console.log(response);
 
       // si el token es válido:
       setIsLoggedIn(true);
@@ -45,11 +45,9 @@ function AuthWrapper(props) {
       if (response.data.payload.role === "dogTrainer") {
         setIsDogTrainer(true);
         setIsDogOwner(false);
-        // setTabsValue(1);
       } else if (response.data.payload.role === "dogOwner") {
         setIsDogTrainer(false);
         setIsDogOwner(true);
-        // setTabsValue(0);
       }
     } catch (error) {
       // si el token no es válido o ha expirado:
@@ -68,7 +66,6 @@ function AuthWrapper(props) {
   const getUserInfo = async () => {
     try {
         const response = await service.get(`/user/owner`);
-        console.log("mi usuario", response.data);
         setUserInfo(response.data)
     } catch (error) {
       console.log(error);

@@ -48,7 +48,6 @@ function SessionCard(props) {
       setOpenDialog(false)
       props.getSessionData()
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };

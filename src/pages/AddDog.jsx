@@ -81,7 +81,6 @@ function AddDog() {
       await service.post("/dog", newDog);
       navigate("/my-profile")
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };
@@ -101,7 +100,6 @@ function AddDog() {
       setImageUrl(response.data.imageUrl);
       setIsUploading(false);
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };

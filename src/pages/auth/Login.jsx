@@ -36,7 +36,6 @@ function Login() {
 
     try {
       const response = await service.post("/auth/login", userCredentials);
-      console.log(response);
 
       // almacenamos el token
       localStorage.setItem("authToken", response.data.authToken);
@@ -47,10 +46,10 @@ function Login() {
       // redireccionamos
       navigate("/");
     } catch (error) {
-      console.log(error);
       if(error.response.status === 400){
         setErrorMessage(error.response.data.errorMessage)
       }
+      navigate("/error")
     }
   };
 

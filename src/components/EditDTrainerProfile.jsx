@@ -95,7 +95,6 @@ function EditDTrainerProfile() {
       await service.put("/user/owner", updatedUser);
       setOpenSnackBar(true);
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };
@@ -116,7 +115,6 @@ function EditDTrainerProfile() {
       setPicProfile(response.data.imageUrl);
       setIsUploading(false);
     } catch (error) {
-      console.log(error);
       navigate("/error")
     }
   };

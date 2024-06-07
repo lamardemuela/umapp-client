@@ -47,7 +47,6 @@ function DogDetails() {
   const getDogData = async () => {
     try {
       const response = await service.get(`/dog/${params.dogId}`);
-      // console.log("mi perro", response.data);
       setDogDetails(response.data);
       setName(response.data.name);
       setBreed(response.data.breed);
@@ -59,7 +58,7 @@ function DogDetails() {
       setSize(response.data.size);
       setImageUrl(response.data.image);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
@@ -117,7 +116,7 @@ function DogDetails() {
       await service.put(`/dog/${params.dogId}`, updatedDog);
       navigate("/my-profile")
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
@@ -136,7 +135,7 @@ function DogDetails() {
       setImageUrl(response.data.imageUrl);
       setIsUploading(false);
     } catch (error) {
-      console.log(error);
+      navigate("/error")
     }
   };
 
