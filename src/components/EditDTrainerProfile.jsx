@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import CircularProgress from "@mui/material/CircularProgress";
-import Stack from "@mui/material/Stack";
 import provincesData from "../assets/data/provinces.json";
 import service from "../services/config.services";
 import TextField from "@mui/material/TextField";
@@ -19,6 +18,7 @@ import Chip from '@mui/material/Chip';
 import MenuItem from "@mui/material/MenuItem";
 import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 function EditDTrainerProfile() {
     // services arr
@@ -42,7 +42,7 @@ function EditDTrainerProfile() {
   const navigate = useNavigate()
 
   // 🌐 Context
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, isDogTrainer } = useContext(AuthContext);
 
   // 📦 Estados
   const [name, setName] = useState("");
@@ -158,7 +158,10 @@ function EditDTrainerProfile() {
       <Box
         sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px", marginBottom:"16px"}}
       >
-        <h2>Tu perfil</h2>
+        <Box sx={{display:"flex", flexDirection:"column"}}>
+          <h2>Tu perfil</h2>
+          {isDogTrainer === true && <Typography variant="caption"> Educador Canino  </Typography>}
+        </Box>
         <Button
           component="label"
           role={undefined}

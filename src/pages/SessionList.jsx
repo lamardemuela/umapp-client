@@ -34,6 +34,7 @@ function SessionList() {
   if (sessionList === null) {
     return <CircularProgress />;
   }
+  console.log(sessionList);
 
   return (
     <Box 

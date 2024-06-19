@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -12,6 +12,8 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import WhatsappButton from "./WhatsappButton";
+import { Button, Snackbar } from "@mui/material";
+import { AuthContext } from "../context/auth.context";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -25,10 +27,28 @@ const ExpandMore = styled((props) => {
 }));
 
 function DogTrainerCard(props) {
+  // card
   const [expanded, setExpanded] = useState(false);
-
   const handleExpandClick = () => setExpanded(!expanded);
+  // snackbar
+  const [openSnackBar, setOpenSnackBar] = useState(false)
 
+  // cierre de snackbar
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackBar(false);
+  };
+
+  const action = (
+    <>
+      <Button color="secondary" size="small" onClick={handleCloseSnackBar}>
+        OK
+      </Button>
+    </>
+  );
   return (
     <Box>
       <Card
@@ -92,6 +112,13 @@ function DogTrainerCard(props) {
           </CardContent>
         </Collapse>
       </Card>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackBar}
+        message="Se ha solicitado una sesión al educador"
+        action={action}
+      />
     </Box>
   );
 }

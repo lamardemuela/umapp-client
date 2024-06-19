@@ -13,12 +13,13 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
 import Container from '@mui/material/Container';
+import Typography from "@mui/material/Typography";
 
 function EditDOwnerProfile() {
   const navigate = useNavigate()
 
   // 🌐 Context
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, isDogOwner } = useContext(AuthContext);
 
   // 📦 Estados
   const [name, setName] = useState("");
@@ -138,7 +139,10 @@ function EditDOwnerProfile() {
       <Box
         sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", backgroundColor:"#ffffff", gap:"24px", padding: "40px", border:"1px solid #f7f2f7", borderRadius:"12px", marginBottom:"16px"}}
       >
-        <h2>Tu perfil</h2>
+        <Box sx={{display:"flex", flexDirection:"column"}}>
+          <h2>Tu perfil</h2>
+          {isDogOwner === true && <Typography variant="caption"> Propietario 🐶  </Typography>}
+        </Box>
           <Button
             component="label"
             role={undefined}
